@@ -8,7 +8,7 @@ namespace BlackJack
 {
     public class Deck
     {
-        private List<Card> _cards = new List<Card>();
+        private List<Card> _cards;
         
         public Deck(string jsonFilePath)
         {

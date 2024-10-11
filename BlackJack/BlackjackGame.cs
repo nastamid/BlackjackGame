@@ -22,96 +22,82 @@ namespace BlackJack
 
         public void StartGame()
         {
-            _deck.Shuffle();
+            PlayGame();
+            EndGame();
+        }
 
-            bool isHold = false;
+        private void PlayGame()
+        {
+            _deck.Shuffle();
+            var isHold = false;
             while (!isHold)
             {
-                Console.Clear();
+                _presenter.Clear();
                 AddCardToPlayers();
-
-                foreach (var player in Players.ToList())
-                {
-                    if (player.IsBusted())
-                    {
-                        Console.BackgroundColor = ConsoleColor.Red;
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        Console.WriteLine($"{player.Name} is busted");
-                        _presenter.DisplayPlayerHand(player);
-                        Players.Remove(player);
-                        Console.ResetColor();
-                    }
-                }
+                KickOutBustedPlayers();
                 
                 if (Players.Count <= 1)
                     break;
                 
                 foreach (var player in Players)
                 {
-                    if (!player.IsDealer)
-                        _presenter.DisplayPlayerHand(player);
+                    if (player.IsDealer)
+                        continue;
                     
-                    if (!player.IsDealer)
-                    {
-                        isHold = AsksForHold(player);
-                        if (isHold)
-                            break;
-                    }
+                    isHold = AsksForHold(player);
+                    if (isHold)
+                        break;
                 }
             }
-            
-            Console.Clear();
-            Console.WriteLine("===== GAME OVER =====");
+        }
+        
+        private void EndGame()
+        {
+            _presenter.DisplayEndGame();
+            var winner = _evaluator.DetermineWinner(Players);
+            _presenter.DisplayWinner(winner);
+            Players.Remove(winner);
+            _presenter.DisplayLeftPlayerCardsAndValue(Players);
+        }
 
-            Player winner = _evaluator.DetermineWinner(Players);
-            DisplayWinner(winner);
-            DisplayLeftPlayerCardsAndValue(winner);
-
+        private void KickOutBustedPlayers()
+        {
+            for (var index = 0; index < Players.ToList().Count; index++)
+            {
+                var player = Players.ToList()[index];
+                if (player.IsBusted())
+                {
+                    _presenter.DisplayBustedPlayer(player);
+                    Players.Remove(player);
+                }
+            }
         }
 
         private void AddCardToPlayers()
         {
             foreach (var player in Players)
-            {
                 player.AddCard(_deck.DrawCard());
-            }
-        }
-
-
-        private void DisplayWinner(Player winner)
-        {
-            Console.BackgroundColor = ConsoleColor.Green;
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine("{0} is a Winner", winner.Name);
-            _presenter.DisplayPlayerHand(winner);
-            Console.ResetColor();
-        }
-
-        private void DisplayLeftPlayerCardsAndValue(Player winner)
-        {
-            Console.WriteLine("Other Players:");
-            Players.Remove(winner);
-            foreach (var player in Players)
-                _presenter.DisplayPlayerHand(player);
         }
 
         private bool AsksForHold(Player player)
         {
-            Console.WriteLine($"{player.Name} - Do you want to (H)it or (X)HOLD?");
-            var choice = Console.ReadLine()?.ToUpper();
-            
-            if (choice == null || (choice != "H" && choice != "X"))
-                return  AsksForHold(player);;
-            
-            return choice.Equals("X");
+            while (true)
+            {
+                _presenter.DisplayPlayerHand(player);
+                _presenter.DisplayQuestionForHitOrHold(player);
+                var choice = Console.ReadLine()?.ToUpper();
+
+                if (choice == null || (choice != "H" && choice != "X")) 
+                    continue;
+                return choice.Equals("X");
+            }
         }
-        
 
-        private List<Player> CreatePlayers(int playerCount)
+        private static List<Player> CreatePlayers(int playerCount)
         {
-            List<Player> players = new List<Player>();
+            var players = new List<Player>();
 
-            for (int i = 0; i < playerCount; i++)
+            for (var i = 0; i < playerCount; i++)
                 players.Add(new Player($"Player_{(i + 1).ToString()}"));
             
             players.Add(new Player("Dealer", true));
