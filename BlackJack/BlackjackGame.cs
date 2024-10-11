@@ -28,7 +28,7 @@ namespace BlackJack
             while (Players.Count > 1 && !isHold)
             {
                 AddCardToPlayers();
-                foreach (var player in Players)
+                foreach (var player in Players.ToList())
                 {
                     if (!player.IsDealer)
                         _presenter.DisplayPlayerHand(player);
@@ -38,6 +38,7 @@ namespace BlackJack
                         Console.WriteLine($"{player.Name} is busted");
                         _presenter.DisplayPlayerHand(player);
                         Players.Remove(player);
+                        continue;
                     }
                     
                     if (!player.IsDealer)
@@ -49,9 +50,12 @@ namespace BlackJack
                 }
             }
             
-            DisplayLeftPlayerCardsAndValue();
+            Console.WriteLine("===== GAME OVER =====");
+
             Player winner = _evaluator.DetermineWinner(Players);
             DisplayWinner(winner);
+            DisplayLeftPlayerCardsAndValue(winner);
+
         }
 
         private void AddCardToPlayers()
@@ -69,9 +73,9 @@ namespace BlackJack
             _presenter.DisplayPlayerHand(winner);
         }
 
-        private void DisplayLeftPlayerCardsAndValue()
+        private void DisplayLeftPlayerCardsAndValue(Player winner)
         {
-            Console.WriteLine("===== GAME OVER =====");
+            Players.Remove(winner);
             foreach (var player in Players)
                 _presenter.DisplayPlayerHand(player);
         }

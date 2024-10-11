@@ -26,6 +26,6 @@ namespace BlackJack
             return Hand.Sum(c=>c.Value);
         }
 
-        public bool IsBusted() => Hand.Count > 21;
+        public bool IsBusted() => CalculateHandValue() > 21;
     }
 }
