@@ -25,21 +25,31 @@ namespace BlackJack
             _deck.Shuffle();
 
             bool isHold = false;
-            while (Players.Count > 1 && !isHold)
+            while (!isHold)
             {
+                Console.Clear();
                 AddCardToPlayers();
+
                 foreach (var player in Players.ToList())
                 {
-                    if (!player.IsDealer)
-                        _presenter.DisplayPlayerHand(player);
-
                     if (player.IsBusted())
                     {
+                        Console.BackgroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.Black;
                         Console.WriteLine($"{player.Name} is busted");
                         _presenter.DisplayPlayerHand(player);
                         Players.Remove(player);
-                        continue;
+                        Console.ResetColor();
                     }
+                }
+                
+                if (Players.Count <= 1)
+                    break;
+                
+                foreach (var player in Players)
+                {
+                    if (!player.IsDealer)
+                        _presenter.DisplayPlayerHand(player);
                     
                     if (!player.IsDealer)
                     {
@@ -50,6 +60,7 @@ namespace BlackJack
                 }
             }
             
+            Console.Clear();
             Console.WriteLine("===== GAME OVER =====");
 
             Player winner = _evaluator.DetermineWinner(Players);
@@ -69,12 +80,16 @@ namespace BlackJack
 
         private void DisplayWinner(Player winner)
         {
+            Console.BackgroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("{0} is a Winner", winner.Name);
             _presenter.DisplayPlayerHand(winner);
+            Console.ResetColor();
         }
 
         private void DisplayLeftPlayerCardsAndValue(Player winner)
         {
+            Console.WriteLine("Other Players:");
             Players.Remove(winner);
             foreach (var player in Players)
                 _presenter.DisplayPlayerHand(player);
@@ -86,10 +101,7 @@ namespace BlackJack
             var choice = Console.ReadLine()?.ToUpper();
             
             if (choice == null || (choice != "H" && choice != "X"))
-            {
-                AsksForHold(player);
-                return false;
-            }
+                return  AsksForHold(player);;
             
             return choice.Equals("X");
         }
