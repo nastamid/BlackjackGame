@@ -1,25 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using Newtonsoft.Json;
+using BlackJack.AppSettings;
+using BlackJack.Utils;
 
-namespace BlackJack
+namespace BlackJack.Models
 {
     public class Deck
     {
         private List<Card> _cards;
         
-        public Deck(string jsonFilePath)
+        public Deck()
         {
-            _cards = LoadCardsFromJson(jsonFilePath);
+            _cards = JsonReader.LoadCardsFromJson(Configurations.CardsJsonPath);
             Shuffle();
-        }
-        
-        private List<Card> LoadCardsFromJson(string filePath)
-        {
-            var json = File.ReadAllText(filePath);
-            return JsonConvert.DeserializeObject<CardWrapper>(json).Cards;
         }
         
         public void Shuffle()

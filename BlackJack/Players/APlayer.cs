@@ -1,22 +1,30 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BlackJack.Models;
+using BlackJack.Strategies;
 
-namespace BlackJack
+namespace BlackJack.Players
 {
-    public class Player
+    public abstract class APlayer
     {
         public string Name { get; }
-        public bool IsDealer { get; }
         public List<Card> Hand { get; }
 
-        public Player(string name, bool isDealer = false)
+        private IPlayerStrategy _strategy;
+
+        public APlayer(string name, IPlayerStrategy strategy)
         {
             Name = name;
-            IsDealer = isDealer;
+            _strategy = strategy;
             Hand = new List<Card>();
         }
 
-        public void AddCard(Card card)
+        public void TakeTurn(Deck deck)
+        {
+            _strategy.Execute(this, deck);
+        }
+
+        public void AddCardToHand(Card card)
         {
             Hand.Add(card);
         }

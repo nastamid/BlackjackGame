@@ -1,19 +1,46 @@
 ﻿using System.Collections.Generic;
+using BlackJack.AppSettings;
+using BlackJack.Players;
+using BlackJack.View;
 
 namespace BlackJack
 {
     public class PlayerFactory
     {
-        private  const string DefaultPlayerName = "Player";
-        
-        public List<Player> CreatePlayers(int playerCount)
+        public APlayer CreateDealer()
         {
-            var players = new List<Player>();
+            return new Dealer();
+        }
 
-            for (var i = 0; i < playerCount; i++)
-                players.Add(new Player($"{DefaultPlayerName}_{(i + 1).ToString()}"));
-            
-            players.Add(new Player("Dealer", true));
+        public APlayer CreateHumanPlayer()
+        {
+            ConsoleView.Instance.EnterPlayerName();
+            var name = Input.Instance.ReadLine();
+            return new Human(name);
+        }
+        
+        public List<APlayer> CreateHumanPlayers(int count)
+        {
+            var players = new List<APlayer>();
+            for (var i = 0; i < count; i++)
+            {
+                ConsoleView.Instance.EnterPlayerName();
+                var name = Input.Instance.ReadLine();
+                if (string.IsNullOrEmpty(name))
+                    name = Configurations.DefaultPlayerName + "_" + i;
+                players.Add(new Human(name));
+            }
+            return players;
+        }
+
+        public List<APlayer> CreateBotPlayers(int count)
+        {
+            var players = new List<APlayer>();
+            for (var i = 0; i < count; i++)
+            {
+                var botName = Configurations.DefaultBotName + "_" + i;
+                players.Add(new Bot(botName));
+            }
             return players;
         }
     }

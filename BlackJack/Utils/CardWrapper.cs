@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using BlackJack.Models;
 using Newtonsoft.Json;
 
-namespace BlackJack
+namespace BlackJack.Utils
 {
     public class CardWrapper
     {

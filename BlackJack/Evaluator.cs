@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BlackJack.Models;
+using BlackJack.Players;
 
 namespace BlackJack
 {
     public class Evaluator
     {
-        public Player DetermineWinner(List<Player> players)
+        public APlayer DetermineWinner(List<APlayer> players)
         {
             if (players.Count == 1)
                 return players[0];

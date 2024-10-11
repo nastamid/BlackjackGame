@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace BlackJack
+namespace BlackJack.Models
 {
     public class Card
     {
