@@ -19,7 +19,7 @@ namespace BlackJack
         private List<Card> LoadCardsFromJson(string filePath)
         {
             var json = File.ReadAllText(filePath);
-            return JsonConvert.DeserializeObject<List<Card>>(json);
+            return JsonConvert.DeserializeObject<CardWrapper>(json).Cards;
         }
         
         public void Shuffle()

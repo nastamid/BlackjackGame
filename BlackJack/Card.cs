@@ -1,10 +1,17 @@
-﻿namespace BlackJack
+﻿using Newtonsoft.Json;
+
+namespace BlackJack
 {
     public class Card
     {
-        public string Suit { get; }
-        public string Face { get; }
-        public int Value { get; }
+        [JsonProperty ("suit")]
+        public string Suit { get; private set; }
+        
+        [JsonProperty ("face")]
+        public string Face { get; private set; }
+        
+        [JsonProperty ("value")]
+        public int Value { get; private set; }
 
         public Card(string suit, string face, int value)
         {

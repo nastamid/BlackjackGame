@@ -55,13 +55,22 @@
         <Compile Include="AssetPaths.cs" />
         <Compile Include="BlackjackGame.cs" />
         <Compile Include="Card.cs" />
+        <Compile Include="CardWrapper.cs" />
         <Compile Include="Deck.cs" />
+        <Compile Include="Evaluator.cs" />
         <Compile Include="Player.cs" />
+        <Compile Include="Presenter.cs" />
         <Compile Include="Program.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>
     <ItemGroup>
+      <None Include="App.config" />
       <None Include="packages.config" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Include="cards.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
