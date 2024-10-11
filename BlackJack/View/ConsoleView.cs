@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using BlackJack.Models;
 using BlackJack.Players;
 
 namespace BlackJack.View
@@ -13,7 +12,7 @@ namespace BlackJack.View
 
         public void DisplayPlayerHand(APlayer aPlayer)
         {
-            Console.Write($"{aPlayer.Name}'s Value = {aPlayer.CalculateHandValue().ToString()} hand: ");
+            Console.Write($"{aPlayer.Name}'s Hand Value = {aPlayer.HandValue.ToString()}, Hand: ");
             foreach (var card in aPlayer.Hand)
             {
                 Console.Write($"|{card.Face}_{card.Suit}_{card.Value}|");
@@ -43,6 +42,7 @@ namespace BlackJack.View
             Console.WriteLine("{0} is a Winner", aPlayer.Name);
             DisplayPlayerHand(aPlayer);
             Console.ResetColor();
+            Console.WriteLine();
         }
 
         public void DisplayLeftPlayerCardsAndValue(List<APlayer> players)
@@ -54,7 +54,6 @@ namespace BlackJack.View
 
         public void DisplayEndGame()
         {
-            Clear();
             Console.WriteLine("===== GAME OVER =====");
         }
 
@@ -86,6 +85,21 @@ namespace BlackJack.View
         public void PromptInvalidGameMode()
         {
             Console.WriteLine("Invalid input. Try S or M for selecting Game Mode");
+        }
+
+        public void AskPlayAgainOrQuit()
+        {
+            Console.WriteLine("Press 'q' to quit or any other key to play again");
+        }
+
+        public void PromptHit(string playerName)
+        {
+            Console.WriteLine($"{playerName}: HIT!");
+        }
+        
+        public void PromptHold(string playerName)
+        {
+            Console.WriteLine($"{playerName}: HOLD!");
         }
     }
 }

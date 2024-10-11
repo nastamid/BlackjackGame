@@ -55,11 +55,9 @@
         <Compile Include="AppSettings\Configurations.cs" />
         <Compile Include="BlackjackGame.cs" />
         <Compile Include="Enums\EGameMode.cs" />
-        <Compile Include="Evaluator.cs" />
-        <Compile Include="Input.cs" />
+        <Compile Include="Factories\PlayerFactory.cs" />
         <Compile Include="Models\Card.cs" />
         <Compile Include="Models\Deck.cs" />
-        <Compile Include="PlayerFactory.cs" />
         <Compile Include="Players\Bot.cs" />
         <Compile Include="Players\Dealer.cs" />
         <Compile Include="Players\Human.cs" />
@@ -71,6 +69,8 @@
         <Compile Include="Strategies\HumanStrategy.cs" />
         <Compile Include="Strategies\IPlayerStrategy.cs" />
         <Compile Include="Utils\CardWrapper.cs" />
+        <Compile Include="Utils\Evaluator.cs" />
+        <Compile Include="Utils\Input.cs" />
         <Compile Include="Utils\JsonReader.cs" />
         <Compile Include="View\ConsoleView.cs" />
     </ItemGroup>

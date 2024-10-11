@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using BlackJack.AppSettings;
 using BlackJack.Players;
+using BlackJack.Utils;
 using BlackJack.View;
 
-namespace BlackJack
+namespace BlackJack.Factories
 {
     public class PlayerFactory
     {
@@ -38,7 +39,7 @@ namespace BlackJack
             var players = new List<APlayer>();
             for (var i = 0; i < count; i++)
             {
-                var botName = Configurations.DefaultBotName + "_" + i;
+                var botName = Configurations.DefaultBotName + "_" + (i + 1);
                 players.Add(new Bot(botName));
             }
             return players;

@@ -9,8 +9,10 @@ namespace BlackJack.Players
     {
         public string Name { get; }
         public List<Card> Hand { get; }
+        public int HandValue => Hand.Sum(c=>c.Value);
+        public bool IsBusted() => HandValue > 21;
 
-        private IPlayerStrategy _strategy;
+        private readonly IPlayerStrategy _strategy;
 
         public APlayer(string name, IPlayerStrategy strategy)
         {
@@ -19,21 +21,14 @@ namespace BlackJack.Players
             Hand = new List<Card>();
         }
 
-        public void TakeTurn(Deck deck)
+        public bool TakeTurn(Deck deck)
         {
-            _strategy.Execute(this, deck);
+            return _strategy.ShouldHit(this, deck);
         }
 
         public void AddCardToHand(Card card)
         {
             Hand.Add(card);
         }
-
-        public int CalculateHandValue()
-        {
-            return Hand.Sum(c=>c.Value);
-        }
-
-        public bool IsBusted() => CalculateHandValue() > 21;
     }
 }

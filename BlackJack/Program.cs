@@ -1,5 +1,6 @@
 ﻿using System;
 using BlackJack.Enums;
+using BlackJack.Utils;
 using BlackJack.View;
 
 namespace BlackJack
@@ -15,20 +16,18 @@ namespace BlackJack
         {
             var game = new BlackjackGame();
 
-            while (true) // Not A Production Code, Purpose of it to play indefinitely
+            while (true)
             {
-                EGameMode gameMode = AskForGameMode();
+                var gameMode = AskForGameMode();
                 var playerCount = AskPlayerCount();
+                
                 game.Initialize(gameMode, playerCount);
                 game.StartGame();
                 game.Dispose();
-                
-                Console.WriteLine("Press 'q' to quit or any other key to play again");
+
+                ConsoleView.Instance.AskPlayAgainOrQuit();
                 if (Console.ReadKey().KeyChar == 'q')
-                {
                     break;
-                }
-                Console.Clear();
             }
         }
 
@@ -38,7 +37,7 @@ namespace BlackJack
             {
                 ConsoleView.Instance.Clear();
                 ConsoleView.Instance.AskForGameMode();
-                var choice = Input.Instance.ReadLine();
+                var choice = Input.Instance.ReadLine().ToUpper();
 
                 if (!choice.Equals("S") || !choice.Equals("M"))
                     ConsoleView.Instance.PromptInvalidGameMode();

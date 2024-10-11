@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BlackJack
+namespace BlackJack.Utils
 {
     public class Input
     {

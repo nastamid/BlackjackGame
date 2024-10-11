@@ -2,48 +2,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using BlackJack.Enums;
+using BlackJack.Factories;
 using BlackJack.Models;
 using BlackJack.Players;
+using BlackJack.Utils;
 using BlackJack.View;
 
 namespace BlackJack
 {
     public class BlackjackGame
     {
-        private readonly Deck _deck = new Deck();
         private readonly Evaluator _evaluator = new Evaluator();
         private readonly PlayerFactory _playerFactory = new PlayerFactory();
 
-        private List<APlayer> Players { get; set; }
+        private List<APlayer> _players;
+        private Deck _deck;
 
         public void Initialize(EGameMode gameMode, int playerCount)
         {
-            Players = new List<APlayer>();
+            _players = new List<APlayer>();
+            _deck = new Deck();
             
             switch (gameMode)
             {
                 case EGameMode.SinglePlayer:
-                    InitializeSinglePlayer(playerCount);
+                    _players.Add(_playerFactory.CreateHumanPlayer());
+                    _players.AddRange(_playerFactory.CreateBotPlayers(--playerCount));
                     break;
                 case EGameMode.MultiPlayer:
-                    InitializeMultiplayer(playerCount);
+                    _players.AddRange(_playerFactory.CreateHumanPlayers(playerCount));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode, null);
             }
-        }
 
-        private void InitializeSinglePlayer(int playerCount)
-        {
-            Players.Add(_playerFactory.CreateDealer());
-            Players.Add(_playerFactory.CreateHumanPlayer());
-            Players.AddRange(_playerFactory.CreateBotPlayers(--playerCount));
-        }
-
-        private void InitializeMultiplayer(int playerCount)
-        {
-            Players.Add(_playerFactory.CreateDealer());
-            Players.AddRange(_playerFactory.CreateHumanPlayers(playerCount));
+            _players.Add(_playerFactory.CreateDealer());
         }
 
         public void StartGame()
@@ -55,23 +48,19 @@ namespace BlackJack
         private void PlayGame()
         {
             _deck.Shuffle();
-            var isHold = false;
-            while (!isHold)
+            var isHit = true;
+            while (isHit)
             {
-                ConsoleView.Instance.Clear();
                 AddCardToPlayers();
                 KickOutBustedPlayers();
 
-                if (Players.Count <= 1)
+                if (_players.Count <= 1)
                     break;
 
-                foreach (var player in Players)
+                foreach (var player in _players)
                 {
-                    // if (player.IsDealer)
-                    //     continue;
-
-                    isHold = AsksForHold(player);
-                    if (isHold)
+                    isHit = player.TakeTurn(_deck);
+                    if (!isHit)
                         break;
                 }
             }
@@ -80,44 +69,31 @@ namespace BlackJack
         private void EndGame()
         {
             ConsoleView.Instance.DisplayEndGame();
-            var winner = _evaluator.DetermineWinner(Players);
+            var winner = _evaluator.DetermineWinner(_players);
             ConsoleView.Instance.DisplayWinner(winner);
-            Players.Remove(winner);
-            ConsoleView.Instance.DisplayLeftPlayerCardsAndValue(Players);
+            _players.Remove(winner);
+            ConsoleView.Instance.DisplayLeftPlayerCardsAndValue(_players);
         }
 
         private void KickOutBustedPlayers()
         {
-            var bustedPlayers = Players.Where(player => player.IsBusted()).ToList();
+            var bustedPlayers = _players.Where(player => player.IsBusted()).ToList();
             foreach (var bustedPlayer in bustedPlayers)
             {
                 ConsoleView.Instance.DisplayBustedPlayer(bustedPlayer);
-                Players.Remove(bustedPlayer);
+                _players.Remove(bustedPlayer);
             }
         }
 
         private void AddCardToPlayers()
         {
-            foreach (var player in Players)
+            foreach (var player in _players)
                 player.AddCardToHand(_deck.DrawCard());
-        }
-
-        private bool AsksForHold(APlayer aPlayer)
-        {
-            while (true)
-            {
-                ConsoleView.Instance.DisplayPlayerHand(aPlayer);
-                ConsoleView.Instance.DisplayQuestionForHitOrHold(aPlayer);
-                var choice = Console.ReadLine()?.ToUpper();
-                if (choice != "H" && choice != "X")
-                    continue;
-                return choice == "X";
-            }
         }
 
         public void Dispose()
         {
-            Players = null;
+            _players = null;
         }
     }
 }

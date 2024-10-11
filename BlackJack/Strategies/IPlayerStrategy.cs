@@ -5,6 +5,6 @@ namespace BlackJack.Strategies
 {
     public interface IPlayerStrategy
     {
-        void Execute(APlayer aPlayer, Deck deck);
+        bool ShouldHit(APlayer player, Deck deck);
     }
 }
