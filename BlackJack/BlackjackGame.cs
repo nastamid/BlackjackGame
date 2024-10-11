@@ -6,18 +6,16 @@ namespace BlackJack
 {
     public class BlackjackGame
     {
-        private Deck _deck;
-        private Evaluator _evaluator;
-        private Presenter _presenter;
+        private readonly Deck _deck = new Deck(AssetPaths.CardsJsonPath);
+        private readonly Evaluator _evaluator = new Evaluator();
+        private readonly Presenter _presenter = new Presenter();
+        private readonly PlayerFactory _playerFactory = new PlayerFactory();
         
-        public List<Player> Players { get; set; }
-        
-        public BlackjackGame(int playerCount)
+        private List<Player> Players { get; set; }
+
+        public void Initialize(int playerCount)
         {
-            _deck = new Deck(AssetPaths.CardsJsonPath);
-            _evaluator = new Evaluator();
-            _presenter = new Presenter();
-            Players = CreatePlayers (playerCount);
+            Players = _playerFactory.CreatePlayers (playerCount);
         }
 
         public void StartGame()
@@ -91,17 +89,6 @@ namespace BlackJack
                     continue;
                 return choice.Equals("X");
             }
-        }
-
-        private static List<Player> CreatePlayers(int playerCount)
-        {
-            var players = new List<Player>();
-
-            for (var i = 0; i < playerCount; i++)
-                players.Add(new Player($"Player_{(i + 1).ToString()}"));
-            
-            players.Add(new Player("Dealer", true));
-            return players;
         }
     }
 }
