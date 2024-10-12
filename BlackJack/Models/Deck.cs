@@ -8,11 +8,9 @@ namespace BlackJack.Models
 {
     public class Deck
     {
-        public Deck()
+        public Deck(List<Card> cards)
         {
-            IJsonReader jsonReader = new JsonReader();
-            Cards = jsonReader.LoadCardsFromJson(Configurations.CardsJsonPath);
-            Shuffle();
+            Cards = cards;
         }
 
         public List<Card> Cards { get; private set; }

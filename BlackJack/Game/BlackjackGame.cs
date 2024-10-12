@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BlackJack.AppSettings;
 using BlackJack.Enums;
 using BlackJack.Factories;
 using BlackJack.Models;
@@ -14,14 +15,15 @@ namespace BlackJack
     {
         private readonly Evaluator _evaluator = new Evaluator();
         private readonly PlayerFactory _playerFactory = new PlayerFactory();
+        private readonly IJsonReader jsonReader = new JsonReader();
+        
         private Deck _deck;
-
         private List<APlayer> _players;
 
         public void Initialize(EGameMode gameMode, int playerCount)
         {
             _players = new List<APlayer>();
-            _deck = new Deck();
+            _deck = new Deck(jsonReader.LoadCardsFromJson(Configurations.CardsJsonPath));
 
             switch (gameMode)
             {
@@ -94,6 +96,7 @@ namespace BlackJack
         public void Dispose()
         {
             _players = null;
+            _deck = null;
         }
     }
 }
