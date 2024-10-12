@@ -8,27 +8,28 @@ namespace BlackJack.Models
 {
     public class Deck
     {
-        private List<Card> _cards;
-        
         public Deck()
         {
-            _cards = JsonReader.LoadCardsFromJson(Configurations.CardsJsonPath);
+            IJsonReader jsonReader = new JsonReader();
+            Cards = jsonReader.LoadCardsFromJson(Configurations.CardsJsonPath);
             Shuffle();
         }
-        
+
+        public List<Card> Cards { get; private set; }
+
         public void Shuffle()
         {
             var rand = new Random();
-            _cards = _cards.OrderBy(c => rand.Next()).ToList();
+            Cards = Cards.OrderBy(c => rand.Next()).ToList();
         }
 
         public Card DrawCard()
         {
-            if (_cards.Count == 0) 
+            if (Cards.Count == 0)
                 throw new InvalidOperationException("No more cards in the deck.");
-            
-            var card = _cards[0];
-            _cards.RemoveAt(0);
+
+            var card = Cards[0];
+            Cards.RemoveAt(0);
             return card;
         }
     }

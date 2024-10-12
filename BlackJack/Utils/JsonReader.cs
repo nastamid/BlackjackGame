@@ -5,9 +5,14 @@ using Newtonsoft.Json;
 
 namespace BlackJack.Utils
 {
-    public static class JsonReader
+    public interface IJsonReader
     {
-        public static List<Card> LoadCardsFromJson(string filePath)
+        List<Card> LoadCardsFromJson(string filePath);
+    }
+
+    public class JsonReader : IJsonReader
+    {
+        public List<Card> LoadCardsFromJson(string filePath)
         {
             var json = File.ReadAllText(filePath);
             return JsonConvert.DeserializeObject<CardWrapper>(json).Cards;
