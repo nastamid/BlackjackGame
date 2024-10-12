@@ -20,7 +20,7 @@ namespace BlackJack
             {
                 var gameMode = AskForGameMode();
                 var playerCount = AskPlayerCount();
-                
+
                 game.Initialize(gameMode, playerCount);
                 game.StartGame();
                 game.Dispose();

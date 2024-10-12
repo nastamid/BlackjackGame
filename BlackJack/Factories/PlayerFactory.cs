@@ -19,7 +19,7 @@ namespace BlackJack.Factories
             var name = Input.Instance.ReadLine();
             return new Human(name);
         }
-        
+
         public List<APlayer> CreateHumanPlayers(int count)
         {
             var players = new List<APlayer>();
@@ -31,6 +31,7 @@ namespace BlackJack.Factories
                     name = Configurations.DefaultPlayerName + "_" + i;
                 players.Add(new Human(name));
             }
+
             return players;
         }
 
@@ -42,6 +43,7 @@ namespace BlackJack.Factories
                 var botName = Configurations.DefaultBotName + "_" + (i + 1);
                 players.Add(new Bot(botName));
             }
+
             return players;
         }
     }

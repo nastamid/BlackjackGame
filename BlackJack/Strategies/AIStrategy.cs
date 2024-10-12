@@ -9,7 +9,7 @@ namespace BlackJack.Strategies
         public bool ShouldHit(APlayer player, Deck deck)
         {
             var isHit = player.HandValue < 17;
-            
+
             if (isHit)
                 ConsoleView.Instance.PromptHit(player.Name);
             else
