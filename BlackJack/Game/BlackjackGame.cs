@@ -14,15 +14,15 @@ namespace BlackJack
     {
         private readonly Evaluator _evaluator = new Evaluator();
         private readonly PlayerFactory _playerFactory = new PlayerFactory();
+        private Deck _deck;
 
         private List<APlayer> _players;
-        private Deck _deck;
 
         public void Initialize(EGameMode gameMode, int playerCount)
         {
             _players = new List<APlayer>();
             _deck = new Deck();
-            
+
             switch (gameMode)
             {
                 case EGameMode.SinglePlayer:
