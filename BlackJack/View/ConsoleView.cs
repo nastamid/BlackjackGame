@@ -11,7 +11,7 @@ namespace BlackJack.View
     {
         private static ConsoleView _instance;
         public static ConsoleView Instance => _instance ?? (_instance = new ConsoleView());
-        
+
         public void Clear()
         {
             //Console.Clear();
@@ -24,7 +24,7 @@ namespace BlackJack.View
 
         public void EnterPlayerName()
         {
-            Console.WriteLine($"Enter player name: ");
+            Console.WriteLine("Enter player name: ");
         }
 
         public void AskForGameMode()
@@ -56,110 +56,100 @@ namespace BlackJack.View
         {
             Console.WriteLine($"{playerName}: HIT!");
         }
-        
+
         public void PromptHold(string playerName)
         {
             Console.WriteLine($"{playerName}: HOLD!");
         }
-        
+
         public void DisplayGameEnded()
         {
-            Console.WriteLine("===== GAME ENDED =====");
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("===== GAME ENDED =====");
+            Console.ResetColor();
+            Console.WriteLine();
         }
 
         public void PromptDealerWins()
         {
             Console.BackgroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Dealer - WON");
+            Console.Write("Dealer - WON");
             Console.ResetColor();
+            Console.WriteLine();
         }
 
         public void PromptDealerLost()
         {
-            Console.WriteLine($"Dealer - LOST");
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
+            Console.Write("Dealer - LOST");
+            Console.ResetColor();
+            Console.WriteLine();
         }
 
         public void PromptDealerBusted()
         {
-            Console.WriteLine($"Dealer - BUSTED");
+            Console.BackgroundColor = ConsoleColor.Green;
+            Console.Write("Dealer - BUSTED");
+            Console.ResetColor();
+            Console.WriteLine();
         }
-        
+
         public void DisplayWinners(List<IPlayer> winnerPlayers)
         {
-
             foreach (var winner in winnerPlayers)
             {
                 Console.BackgroundColor = ConsoleColor.Green;
-                Console.WriteLine("{0} - WON!", winner.Name);
-                // DisplayPlayerHand(winner);
+                Console.Write("{0} - WON!", winner.Name);
                 Console.ResetColor();
-
+                Console.WriteLine();
             }
         }
 
         public void DisplayLosers(List<IPlayer> losers)
         {
-            Console.BackgroundColor = ConsoleColor.DarkBlue;
-
             foreach (var loser in losers)
             {
-                Console.WriteLine("{0} - LOST", loser.Name);
-                // DisplayPlayerHand(loser);
+                Console.BackgroundColor = ConsoleColor.DarkBlue;
+                Console.Write("{0} - LOST", loser.Name);
+                Console.ResetColor();
+                Console.WriteLine();
             }
-            
-            Console.ResetColor();
         }
 
         public void DisplayBustedPlayers(List<IPlayer> bustedPlayers)
         {
-            Console.BackgroundColor = ConsoleColor.Red;
-
             foreach (var bustedPlayer in bustedPlayers)
             {
-                Console.WriteLine("{0} - BUSTED!", bustedPlayer.Name);
-                // DisplayPlayerHand(bustedPlayer);
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.Write("{0} - BUSTED!", bustedPlayer.Name);
+                Console.ResetColor();
+                Console.WriteLine();
             }
-            
-            Console.ResetColor();
         }
 
         public void DisplayPlayersInDraw(List<IPlayer> drawPlayers)
         {
-            Console.BackgroundColor = ConsoleColor.Yellow;
-
             foreach (var drawPlayer in drawPlayers)
             {
-                Console.WriteLine("{0} - DRAW!", drawPlayer.Name);
-                // DisplayPlayerHand(drawPlayer);
+                Console.BackgroundColor = ConsoleColor.Yellow;
+                Console.Write("{0} - DRAW!", drawPlayer.Name);
+                Console.ResetColor();
                 Console.WriteLine();
             }
-            
-            Console.ResetColor();
-            Console.WriteLine();
         }
-        
-        public void DisplayBustedPlayer(IPlayer player)
-        {
-            Console.BackgroundColor = ConsoleColor.Red;
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine($"{player.Name} is busted");
-            DisplayPlayerHand(player);
-            Console.ResetColor();
-        }
-        
+
         public void DisplayPlayerCardsAndValues(List<IPlayer> players)
         {
             foreach (var player in players)
                 DisplayPlayerHand(player);
         }
-        
+
         public void DisplayPlayerHand(IPlayer player)
         {
             Console.Write($"{player.Name}'s Hand Value = {player.HandValue.ToString()}, Hand: ");
-            foreach (var card in player.Hand)
-            {
-                Console.Write($"|{card.Face}_{card.Suit}_{card.Value}|");
-            }
+            foreach (var card in player.Hand) Console.Write($"|{card.Face}_{card.Suit}_{card.Value}|");
             Console.WriteLine();
         }
 
@@ -168,9 +158,8 @@ namespace BlackJack.View
             Console.WriteLine("*** Outcome Report Start ***");
             foreach (var outcome in outcomes)
                 DisplayOutcome(outcome);
-            
-            Console.WriteLine("--- Outcome Report End ---");
 
+            Console.WriteLine("--- Outcome Report End ---");
         }
 
         private void DisplayOutcome(OutcomeData outcome)

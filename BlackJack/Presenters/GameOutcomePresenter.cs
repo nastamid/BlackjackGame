@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BlackJack.AppSettings;
 using BlackJack.Data;
 using BlackJack.Enums;
 using BlackJack.View;
@@ -42,11 +43,12 @@ namespace BlackJack.Presenters
                         throw new ArgumentOutOfRangeException();
                 }
 
-                ConsoleView.Instance.EmptyLine();
                 ConsoleView.Instance.DisplayPlayerCardsAndValues(outcome.Players);
+                ConsoleView.Instance.EmptyLine();
             }
             
-            ConsoleView.Instance.DisplayOutcomes(outcomes);
+            if(Configurations.IsDebugMode)
+                ConsoleView.Instance.DisplayOutcomes(outcomes);
         }
     }
 }
