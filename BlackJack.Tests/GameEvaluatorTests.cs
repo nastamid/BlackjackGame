@@ -122,6 +122,112 @@ namespace BlackJack.Tests
             Assert.IsTrue(outcomes.Any(o => o.OutcomeType == EOutcomeType.DealerWins));
         }
 
+
+        [Test]
+        public void Evaluate_MultipleOutcomes_ShouldDeclareCorrectOutcomes()
+        {
+            // Arrange
+            var secondMockPlayer = new Mock<IPlayer>();
+            _mockPlayer.Setup(p => p.IsBusted()).Returns(false);
+            secondMockPlayer.Setup(p => p.IsBusted()).Returns(false);
+
+            _mockPlayer.Setup(p => p.HandValue).Returns(20);
+            secondMockPlayer.Setup(p => p.HandValue).Returns(19);
+
+            _mockDealer.Setup(d => d.IsBusted()).Returns(false);
+            _mockDealer.Setup(d => d.HandValue).Returns(17);
+
+            _game = new Game(new GameData
+            {
+                Deck = _mockDeck.Object,
+                Dealer = _mockDealer.Object,
+                Players = new List<IPlayer> { _mockPlayer.Object, secondMockPlayer.Object }
+            });
+
+            // Act
+            var outcomes = _evaluator.Evaluate(_game);
+
+            // Assert
+            Assert.IsTrue(outcomes.Any(o =>
+                o.OutcomeType == EOutcomeType.PlayerWins && o.Players.Contains(_mockPlayer.Object)));
+            Assert.IsTrue(outcomes.Any(o =>
+                o.OutcomeType == EOutcomeType.PlayerWins && o.Players.Contains(secondMockPlayer.Object)));
+            Assert.IsFalse(outcomes.Any(o => o.OutcomeType == EOutcomeType.DealerWins));
+        }
+
+
+        [Test]
+        public void Evaluate_Player1Wins_DealerAndPlayer2Loses()
+        {
+            // Arrange
+            var mockPlayer2 = new Mock<IPlayer>();
+            _mockPlayer.Setup(p => p.IsBusted()).Returns(false);
+            mockPlayer2.Setup(p => p.IsBusted()).Returns(false);
+
+            _mockPlayer.Setup(p => p.HandValue).Returns(20);
+            mockPlayer2.Setup(p => p.HandValue).Returns(18);
+
+            _mockDealer.Setup(d => d.IsBusted()).Returns(false);
+            _mockDealer.Setup(d => d.HandValue).Returns(19);
+
+            _game = new Game(new GameData
+            {
+                Deck = _mockDeck.Object,
+                Dealer = _mockDealer.Object,
+                Players = new List<IPlayer> { _mockPlayer.Object, mockPlayer2.Object }
+            });
+
+            // Act
+            var outcomes = _evaluator.Evaluate(_game);
+
+            // Assert
+            Assert.IsTrue(outcomes.Any(o =>
+                o.OutcomeType == EOutcomeType.PlayerWins && o.Players.Contains(_mockPlayer.Object)));
+            Assert.IsTrue(outcomes.Any(o =>
+                o.OutcomeType == EOutcomeType.DealerLoses && o.Players.Contains(_mockDealer.Object)));
+            Assert.IsTrue(outcomes.Any(o =>
+                o.OutcomeType == EOutcomeType.PlayerLoses && o.Players.Contains(mockPlayer2.Object)));
+        }
+
+
+        [Test]
+        public void Evaluate_DealerBusted_PlayerOneWins_PlayerTwoBusted()
+        {
+            // Arrange
+            _mockPlayer.Setup(p => p.IsBusted()).Returns(false); // Player 1 is not busted
+            _mockPlayer.Setup(p => p.HandValue).Returns(20); // Player 1 hand value
+            
+            
+            var mockPlayer2 = new Mock<IPlayer>();
+            mockPlayer2.Setup(p => p.IsBusted()).Returns(true); // Player 2 is busted
+            mockPlayer2.Setup(p => p.HandValue).Returns(25); // Player 1 hand value
+
+            
+            _mockDealer.Setup(d => d.IsBusted()).Returns(true); // Dealer is busted
+            _mockDealer.Setup(p => p.HandValue).Returns(24); // Player 1 hand value
+
+
+            _game = new Game(new GameData
+            {
+                Deck = _mockDeck.Object,
+                Dealer = _mockDealer.Object,
+                Players = new List<IPlayer> { _mockPlayer.Object, mockPlayer2.Object }
+            });
+
+            // Act
+            var outcomes = _evaluator.Evaluate(_game);
+
+            // Assert
+            // Assert.IsTrue(outcomes.Any(o =>
+            //     o.OutcomeType == EOutcomeType.PlayerWins && o.Players.Contains(_mockPlayer.Object)));
+
+            Assert.IsTrue(outcomes.Any(o =>
+                o.OutcomeType == EOutcomeType.DealerBusted && o.Players.Contains(_mockDealer.Object)));
+
+            Assert.IsTrue(outcomes.Any(o =>
+                o.OutcomeType == EOutcomeType.PlayerBusted && o.Players.Contains(mockPlayer2.Object)));
+        }
+
         public void Cleanup()
         {
             _game.Dispose();

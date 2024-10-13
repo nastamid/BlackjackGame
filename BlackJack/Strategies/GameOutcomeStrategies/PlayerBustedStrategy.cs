@@ -9,14 +9,16 @@ namespace BlackJack.Strategies.GameOutcomeStrategies
     {
         public OutcomeData GetOutcome(Game game)
         {
-            if (!game.Players.IsAnyBusted())
-                return null;
-
-            return new OutcomeData()
+            if (game.Players.IsAnyBusted())
             {
-                OutcomeType = EOutcomeType.PlayerBusted,
-                Players = game.Players.GetBustedPlayers()
-            };
+                return new OutcomeData()
+                {
+                    OutcomeType = EOutcomeType.PlayerBusted,
+                    Players = game.Players.GetBustedPlayers()
+                };
+            }
+            
+            return null;
         }
     }
 }

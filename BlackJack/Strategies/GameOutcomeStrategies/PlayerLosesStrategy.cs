@@ -12,16 +12,17 @@ namespace BlackJack.Strategies.GameOutcomeStrategies
         {
             if (game.Players.AreAllBusted())
                 return null;
-            
-            var losers = game.Players.Where(p => p.HandValue < game.Dealer.HandValue).ToList();
 
-            if (losers.Count == 0)
-                return null;
-            return new OutcomeData()
-            {
-                OutcomeType = EOutcomeType.PlayerLoses,
-                Players = losers
-            };
+            var losers = game.Players.GetNonBustedPlayers().Where(p => p.HandValue < game.Dealer.HandValue).ToList();
+
+            if (losers.Count != 0)
+                return new OutcomeData
+                {
+                    OutcomeType = EOutcomeType.PlayerLoses,
+                    Players = losers
+                };
+
+            return null;
         }
     }
 }

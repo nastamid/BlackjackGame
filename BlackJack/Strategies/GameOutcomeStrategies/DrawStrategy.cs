@@ -10,21 +10,21 @@ namespace BlackJack.Strategies.GameOutcomeStrategies
     {
         public OutcomeData GetOutcome(Game game)
         {
-            if (game.Players.AreAllBusted())
-                return null;
-            
-            var drawPlayers = game.Players.Where(p => p.HandValue == game.Dealer.HandValue).ToList();
+            var drawPlayers = game.Players.GetNonBustedPlayers()
+                .Where(p => p.HandValue == game.Dealer.HandValue).ToList();
 
-            if (drawPlayers.Count == 0)
-                return null;
-            
-            drawPlayers.Add(game.Dealer);
-            
-            return new OutcomeData
+            if (drawPlayers.Count != 0)
             {
-                OutcomeType = EOutcomeType.Draw,
-                Players = drawPlayers
-            };
+                drawPlayers.Add(game.Dealer);
+
+                return new OutcomeData
+                {
+                    OutcomeType = EOutcomeType.Draw,
+                    Players = drawPlayers
+                };
+            }
+
+            return null;
         }
     }
 }
