@@ -1,4 +1,11 @@
-﻿using System;
+﻿using BlackJack.AppSettings;
+using BlackJack.Data;
+using BlackJack.Factories;
+using BlackJack.GameCore;
+using BlackJack.Input;
+using BlackJack.Models.Deck;
+using BlackJack.Presenters;
+using BlackJack.Utils;
 
 namespace BlackJack
 {
@@ -6,28 +13,33 @@ namespace BlackJack
     {
         public static void Main(string[] args)
         {
-            StartNewGame();
-        }
+            var gameEvaluator = new GameEvaluator();
+            var playerFactory = new PlayerFactory();
+            var jsonReader = new JsonReader();
+            var presenter = new GameOutcomePresenter();
 
-        private static void StartNewGame()
-        {
-            int playerCount = AskPlayerCount();
-            BlackjackGame game = new BlackjackGame();
-            game.Initialize(playerCount);
-            game.StartGame();
-        }
-
-        private static int AskPlayerCount()
-        {
-            Console.WriteLine("How many players want to join Table?");
-            if (int.TryParse(Console.ReadLine(), out var playerCount) && playerCount > 0 && playerCount < 7)
+            while (true)
             {
-                Console.Clear();
-                return playerCount;
+                var gameMode = InputRequester.AskForGameMode();
+                var playerCount = InputRequester.AskPlayerCount();
+
+                var gameData = new GameData
+                {
+                    Deck = new Deck(jsonReader.LoadCardsFromJson(Configurations.CardsJsonPath)), // Skipping Error handling
+                    Dealer = playerFactory.CreateDealer(),
+                    Players = playerFactory.CratePlayersByMode(gameMode, playerCount)
+                };
+
+                var game = new Game(gameData);
+
+                game.Run();
+                var outcomes = gameEvaluator.Evaluate(game);
+                presenter.PresentOutcomes(outcomes);
+                game.Dispose();
+
+                if (!InputRequester.AskPlayAgain())
+                    break;
             }
-            
-            Console.WriteLine("Invalid input. Please enter a number between 1 and 6.");
-            return  AskPlayerCount();
         }
     }
 }

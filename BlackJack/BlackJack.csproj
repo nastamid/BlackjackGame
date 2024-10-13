@@ -35,16 +35,16 @@
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="JsonConverter.Abstractions, Version=0.7.0.0, Culture=neutral, PublicKeyToken=7ba85365b500f2e2, processorArchitecture=MSIL">
-          <HintPath>..\packages\JsonConverter.Abstractions.0.7.0\lib\net461\JsonConverter.Abstractions.dll</HintPath>
+            <HintPath>..\packages\JsonConverter.Abstractions.0.7.0\lib\net461\JsonConverter.Abstractions.dll</HintPath>
         </Reference>
         <Reference Include="JsonConverter.Newtonsoft.Json, Version=0.7.0.0, Culture=neutral, PublicKeyToken=7ba85365b500f2e2, processorArchitecture=MSIL">
-          <HintPath>..\packages\JsonConverter.Newtonsoft.Json.0.7.0\lib\net45\JsonConverter.Newtonsoft.Json.dll</HintPath>
+            <HintPath>..\packages\JsonConverter.Newtonsoft.Json.0.7.0\lib\net45\JsonConverter.Newtonsoft.Json.dll</HintPath>
         </Reference>
         <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-          <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+            <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
         </Reference>
         <Reference Include="Stef.Validation, Version=0.1.1.0, Culture=neutral, PublicKeyToken=8f3400880c321038, processorArchitecture=MSIL">
-          <HintPath>..\packages\Stef.Validation.0.1.1\lib\net40\Stef.Validation.dll</HintPath>
+            <HintPath>..\packages\Stef.Validation.0.1.1\lib\net40\Stef.Validation.dll</HintPath>
         </Reference>
         <Reference Include="System"/>
         <Reference Include="System.Core"/>
@@ -52,26 +52,50 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="AssetPaths.cs" />
-        <Compile Include="BlackjackGame.cs" />
-        <Compile Include="Card.cs" />
-        <Compile Include="CardWrapper.cs" />
-        <Compile Include="Deck.cs" />
-        <Compile Include="Evaluator.cs" />
-        <Compile Include="Player.cs" />
-        <Compile Include="PlayerFactory.cs" />
-        <Compile Include="Presenter.cs" />
+        <Compile Include="AppSettings\Configurations.cs"/>
+        <Compile Include="Data\GameData.cs"/>
+        <Compile Include="Data\OutcomeData.cs"/>
+        <Compile Include="Enums\EOutcomeType.cs"/>
+        <Compile Include="Extensions\PlayersExtensions.cs"/>
+        <Compile Include="GameCore\GameEvaluator.cs"/>
+        <Compile Include="Enums\EGameMode.cs"/>
+        <Compile Include="Factories\PlayerFactory.cs"/>
+        <Compile Include="GameCore\Game.cs"/>
+        <Compile Include="Input\Input.cs"/>
+        <Compile Include="Input\InputRequester.cs"/>
+        <Compile Include="Models\Card.cs"/>
+        <Compile Include="Models\Deck\Deck.cs"/>
+        <Compile Include="Models\Deck\IDeck.cs"/>
+        <Compile Include="Models\Players\BasePlayer.cs"/>
+        <Compile Include="Models\Players\Bot.cs"/>
+        <Compile Include="Models\Players\Dealer.cs"/>
+        <Compile Include="Models\Players\Human.cs"/>
+        <Compile Include="Models\Players\IPlayer.cs"/>
+        <Compile Include="Presenters\GameOutcomePresenter.cs"/>
         <Compile Include="Program.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
+        <Compile Include="Strategies\GameOutcomeStrategies\DealerBustedStrategy.cs"/>
+        <Compile Include="Strategies\GameOutcomeStrategies\DealerLosesStrategy.cs"/>
+        <Compile Include="Strategies\GameOutcomeStrategies\DealerWinsStrategy.cs"/>
+        <Compile Include="Strategies\GameOutcomeStrategies\DrawStrategy.cs"/>
+        <Compile Include="Strategies\GameOutcomeStrategies\EveryoneBustedStrategy.cs"/>
+        <Compile Include="Strategies\GameOutcomeStrategies\IGameOutcomeStrategy.cs"/>
+        <Compile Include="Strategies\GameOutcomeStrategies\PlayerBustedStrategy.cs"/>
+        <Compile Include="Strategies\GameOutcomeStrategies\PlayerLosesStrategy.cs"/>
+        <Compile Include="Strategies\GameOutcomeStrategies\PlayerWinsStrategy.cs"/>
+        <Compile Include="Strategies\PlayerStrategies\AIStrategy.cs"/>
+        <Compile Include="Strategies\PlayerStrategies\DealerStrategy.cs"/>
+        <Compile Include="Strategies\PlayerStrategies\HumanStrategy.cs"/>
+        <Compile Include="Strategies\PlayerStrategies\IPlayerStrategy.cs"/>
+        <Compile Include="Utils\JsonReader.cs"/>
+        <Compile Include="View\ConsoleView.cs"/>
+        <Compile Include="Wrappers\CardWrapper.cs"/>
     </ItemGroup>
     <ItemGroup>
-      <None Include="App.config" />
-      <None Include="packages.config" />
-    </ItemGroup>
-    <ItemGroup>
-      <None Include="cards.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
+        <None Include="Assets\cards.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="packages.config"/>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
