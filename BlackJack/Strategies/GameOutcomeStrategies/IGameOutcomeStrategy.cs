@@ -5,6 +5,6 @@ namespace BlackJack.Strategies.GameOutcomeStrategies
 {
     public interface IGameOutcomeStrategy
     {
-        EOutcomeType? Execute(Game game);
+        OutcomeData GetOutcome(Game game);
     }
 }

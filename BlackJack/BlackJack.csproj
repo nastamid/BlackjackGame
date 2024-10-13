@@ -64,6 +64,7 @@
         <Compile Include="Models\Card.cs"/>
         <Compile Include="Models\Deck\Deck.cs" />
         <Compile Include="Models\Deck\IDeck.cs" />
+        <Compile Include="Models\OutcomeData.cs" />
         <Compile Include="Models\Players\BasePlayer.cs" />
         <Compile Include="Models\Players\Bot.cs" />
         <Compile Include="Models\Players\Dealer.cs" />
@@ -72,9 +73,14 @@
         <Compile Include="Program.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
         <Compile Include="Strategies\GameOutcomeStrategies\DealerBustedStrategy.cs" />
+        <Compile Include="Strategies\GameOutcomeStrategies\DealerLosesStrategy.cs" />
+        <Compile Include="Strategies\GameOutcomeStrategies\DealerWinsStrategy.cs" />
         <Compile Include="Strategies\GameOutcomeStrategies\DrawStrategy.cs" />
         <Compile Include="Strategies\GameOutcomeStrategies\EveryoneBustedStrategy.cs" />
         <Compile Include="Strategies\GameOutcomeStrategies\IGameOutcomeStrategy.cs" />
+        <Compile Include="Strategies\GameOutcomeStrategies\PlayerBustedStrategy.cs" />
+        <Compile Include="Strategies\GameOutcomeStrategies\PlayerLosesStrategy.cs" />
+        <Compile Include="Strategies\GameOutcomeStrategies\PlayerWinsStrategy.cs" />
         <Compile Include="Strategies\PlayerStrategies\AIStrategy.cs" />
         <Compile Include="Strategies\PlayerStrategies\DealerStrategy.cs" />
         <Compile Include="Strategies\PlayerStrategies\HumanStrategy.cs" />

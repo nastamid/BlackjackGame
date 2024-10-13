@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BlackJack.Enums;
 using BlackJack.GameCore;
-using BlackJack.Models;
 using BlackJack.Models.Deck;
 using BlackJack.Models.Players;
 using Moq;
@@ -20,9 +20,9 @@ namespace BlackJack.Tests
         [SetUp]
         public void Setup()
         {
-            _mockDeck = new Mock<IDeck>(null);
+            _mockDeck = new Mock<IDeck>();
             _mockDealer = new Mock<IPlayer>();
-            _mockPlayer = new Mock<IPlayer>(null);
+            _mockPlayer = new Mock<IPlayer>();
             var players = new List<IPlayer> { _mockPlayer.Object };
 
             var gameData = new GameData
@@ -36,38 +36,90 @@ namespace BlackJack.Tests
             _evaluator = new GameEvaluator();
         }
 
+
         [Test]
-        public void RunGame_WithOneHumanPlayer_HandValue20_DealerHandValue12_ShouldTerminateGame()
+        public void Evaluate_DealerBusted_ShouldDeclarePlayerWinner()
         {
-            // Setup player with hand value 20
-            var playerHand = new List<Card>
-            {
-                new Card("Spades", "10", 10),
-                new Card("Hearts", "10", 10)
-            };
+            // Arrange
+            _mockDealer.Setup(d => d.IsBusted()).Returns(true);
+            _mockPlayer.Setup(p => p.IsBusted()).Returns(false);
+            _mockPlayer.Setup(p => p.HandValue).Returns(18);
 
-            _mockPlayer.Setup(p => p.Hand).Returns(playerHand);
-            _mockPlayer.Setup(p => p.TakeTurn(It.IsAny<Deck>())).Returns(false); // Player Holds
+            // Act
+            var outcomes = _evaluator.Evaluate(_game);
 
-            // Setup dealer with hand value 12
-            var dealerHand = new List<Card>
-            {
-                new Card("Diamonds", "10", 10),
-                new Card("Clubs", "2", 2)
-            };
-            _mockDealer.Setup(p => p.Hand).Returns(dealerHand);
+            // Assert
+            Assert.IsTrue(outcomes.Any(o => o.OutcomeType == EOutcomeType.PlayerWins));
+        }
 
-            var cardQueue = new Queue<Card>();
-            cardQueue.Enqueue(new Card("Spades", "5", 5));
-            cardQueue.Enqueue(new Card("Hearts", "10", 10));
-            cardQueue.Enqueue(new Card("Diamonds", "A", 11));
+        [Test]
+        public void Evaluate_PlayerBusted_ShouldDeclareDealerWinner()
+        {
+            // Arrange
+            _mockDealer.Setup(d => d.IsBusted()).Returns(false);
+            _mockPlayer.Setup(p => p.IsBusted()).Returns(true);
 
-            _mockDeck.Setup(d => d.DrawCard()).Returns(cardQueue.Dequeue);
+            // Act
+            var outcomes = _evaluator.Evaluate(_game);
 
-            // Run the game
-            _game.Run();
-            var outcome = _evaluator.Evaluate(_game);
-            Assert.IsTrue(outcome == EOutcomeType.PlayerWins);
+            // Assert
+            Assert.IsTrue(outcomes.Any(o => o.OutcomeType == EOutcomeType.DealerWins));
+        }
+
+        [Test]
+        public void Evaluate_PlayerHasHigherValue_ShouldDeclarePlayerWinner()
+        {
+            // Arrange
+            _mockDealer.Setup(d => d.HandValue).Returns(17);
+            _mockPlayer.Setup(p => p.HandValue).Returns(19);
+
+            // Act
+            var outcomes = _evaluator.Evaluate(_game);
+
+            // Assert
+            Assert.IsTrue(outcomes.Any(o => o.OutcomeType == EOutcomeType.PlayerWins));
+        }
+
+        [Test]
+        public void Evaluate_DealerHasHigherValue_ShouldDeclareDealerWinner()
+        {
+            // Arrange
+            _mockDealer.Setup(d => d.HandValue).Returns(20);
+            _mockPlayer.Setup(p => p.HandValue).Returns(18);
+
+            // Act
+            var outcomes = _evaluator.Evaluate(_game);
+
+            // Assert
+            Assert.IsTrue(outcomes.Any(o => o.OutcomeType == EOutcomeType.DealerWins));
+        }
+
+        [Test]
+        public void Evaluate_PlayerAndDealerDraw_ShouldDeclareDraw()
+        {
+            // Arrange
+            _mockDealer.Setup(d => d.HandValue).Returns(18);
+            _mockPlayer.Setup(p => p.HandValue).Returns(18);
+
+            // Act
+            var outcomes = _evaluator.Evaluate(_game);
+
+            // Assert
+            Assert.IsTrue(outcomes.Any(o => o.OutcomeType == EOutcomeType.Draw));
+        }
+
+        [Test]
+        public void Evaluate_EveryoneBusted_ShouldDeclareEveryoneBusted()
+        {
+            // Arrange
+            _mockDealer.Setup(d => d.IsBusted()).Returns(true);
+            _mockPlayer.Setup(p => p.IsBusted()).Returns(true);
+
+            // Act
+            var outcomes = _evaluator.Evaluate(_game);
+
+            // Assert
+            Assert.IsTrue(outcomes.Any(o => o.OutcomeType == EOutcomeType.DealerWins));
         }
 
         public void Cleanup()

@@ -2,7 +2,27 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AAssert_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E2_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003F497e7c0354334ae6b2579b219192bcf04a000_003F1e_003Fab74ff51_003FAssert_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AMock_00601_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E2_003Fresharper_002Dhost_003FSourcesCache_003F337268366a89be4dda7d47b37063fd21841972237539397997c82c4f924b_003FMock_00601_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003A_005F_005FError_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E2_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003Fb9f607e27b8644e0bf609b59dfb1c8525735b0_003F62_003F222e5b4e_003F_005F_005FError_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a7fb186c_002Df654_002D454c_002D89dd_002Dbdce21758e10/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=703f49bc_002D8683_002D4263_002Dae4e_002D2deebf2106cb/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RunGame_WithOneHumanPlayer_HandValue20_DealerHandValue12_ShouldTerminateGame" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::60B476F5-C448-4577-8F3C-576C419D6D72::.NETFramework,Version=v4.8::BlackJack.Tests.GameEvaluatorTests.RunGame_WithOneHumanPlayer_HandValue20_DealerHandValue12_ShouldTerminateGame&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a7fb186c_002Df654_002D454c_002D89dd_002Dbdce21758e10/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::60B476F5-C448-4577-8F3C-576C419D6D72::.NETFramework,Version=v4.8::BlackJack.Tests.GameEvaluatorTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cc062c2f_002D9a34_002D478e_002Daf41_002Df7a3925b47a1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GameEvaluatorTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::60B476F5-C448-4577-8F3C-576C419D6D72::.NETFramework,Version=v4.8::BlackJack.Tests.GameEvaluatorTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d1bdd2c3_002D4309_002D4f71_002Db94a_002D9f7a712a53c8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RunGame_WithOneHumanPlayer_HandValue20_DealerHandValue12_ShouldTerminateGame #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::60B476F5-C448-4577-8F3C-576C419D6D72::.NETFramework,Version=v4.8::BlackJack.Tests.GameEvaluatorTests.RunGame_WithOneHumanPlayer_HandValue20_DealerHandValue12_ShouldTerminateGame&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=faf3531b_002D208e_002D4f06_002Da0fc_002D994ec8231db6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="RunGame_WithOneHumanPlayer_HandValue20_DealerHandValue12_ShouldTerminateGame #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::60B476F5-C448-4577-8F3C-576C419D6D72::.NETFramework,Version=v4.8::BlackJack.Tests.GameEvaluatorTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;

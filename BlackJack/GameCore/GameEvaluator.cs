@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using BlackJack.Enums;
 using BlackJack.Strategies.GameOutcomeStrategies;
 
 namespace BlackJack.GameCore
@@ -12,22 +11,31 @@ namespace BlackJack.GameCore
         {
             _strategies = new List<IGameOutcomeStrategy>
             {
+                new DealerBustedStrategy(),
+                new DealerLosesStrategy(),
+                new DealerWinsStrategy(),
+                
+                new PlayerBustedStrategy(),
+                new PlayerLosesStrategy(),
+                new PlayerWinsStrategy(),
+                
                 new DrawStrategy(),
-                new EveryoneBustedStrategy(),
-                new DealerBustedStrategy()
+                new EveryoneBustedStrategy()
             };
         }
 
-        public EOutcomeType? Evaluate(Game game)
+        public List<OutcomeData> Evaluate(Game game)
         {
+            var outcomes = new List<OutcomeData>();
+            
             foreach (var strategy in _strategies)
             {
-                var outcome = strategy.Execute(game);
+                var outcome = strategy.GetOutcome(game);
+                
                 if (outcome != null)
-                    return outcome;
+                    outcomes.Add(outcome);
             }
-
-            return null;
+            return outcomes;
         }
     }
 }

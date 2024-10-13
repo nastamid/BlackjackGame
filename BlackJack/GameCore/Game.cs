@@ -11,12 +11,14 @@ namespace BlackJack.GameCore
         public IDeck Deck { get; private set; }
         public IPlayer Dealer { get; private set; }
         public List<IPlayer> Players { get; private set; }
+        public List<IPlayer> BustedPlayers { get; private set; }
 
         public Game(GameData gameData)
         {
             Deck = gameData.Deck;
             Dealer = gameData.Dealer;
             Players = gameData.Players;
+            BustedPlayers = new List<IPlayer>();
         }
         
         public void Run()
@@ -59,6 +61,7 @@ namespace BlackJack.GameCore
             foreach (var bustedPlayer in bustedPlayers)
             {
                 ConsoleView.Instance.DisplayBustedPlayer(bustedPlayer);
+                BustedPlayers.Add(bustedPlayer);
                 Players.Remove(bustedPlayer);
             }
         }
