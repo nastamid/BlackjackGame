@@ -11,7 +11,7 @@ namespace BlackJack.Strategies.GameOutcomeStrategies
     public class EveryoneBustedStrategy : IGameOutcomeStrategy
     {
         //Dealer wins as everyone is busted.;
-        
+
         public OutcomeData GetOutcome(Game game)
         {
             if (game.Dealer.IsBusted() && game.Players.AreAllBusted())

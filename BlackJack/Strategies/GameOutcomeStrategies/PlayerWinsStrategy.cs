@@ -28,7 +28,7 @@ namespace BlackJack.Strategies.GameOutcomeStrategies
                     OutcomeType = EOutcomeType.PlayerWins,
                     Players = winners
                 };
-            
+
             return null;
         }
     }

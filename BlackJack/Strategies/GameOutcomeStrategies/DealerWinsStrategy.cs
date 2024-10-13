@@ -14,14 +14,14 @@ namespace BlackJack.Strategies.GameOutcomeStrategies
         {
             if (game.Dealer.IsBusted())
                 return null;
-            
-            if (game.Players.AreAllBusted() || !game.Players.Any(p=>p.HandValue >= game.Dealer.HandValue))
+
+            if (game.Players.AreAllBusted() || !game.Players.Any(p => p.HandValue >= game.Dealer.HandValue))
                 return new OutcomeData()
                 {
                     OutcomeType = EOutcomeType.DealerWins,
                     Players = new List<IPlayer>() { game.Dealer }
                 };
-            
+
             return null;
         }
     }

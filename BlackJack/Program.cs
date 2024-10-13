@@ -16,7 +16,7 @@ namespace BlackJack
             var gameEvaluator = new GameEvaluator();
             var playerFactory = new PlayerFactory();
             var jsonReader = new JsonReader();
-            var deck = new Deck(jsonReader.LoadCardsFromJson(Configurations.CardsJsonPath));
+            var deck = new Deck(jsonReader.LoadCardsFromJson(Configurations.CardsJsonPath)); // Skipping Error handling
             var presenter = new GameOutcomePresenter();
 
             while (true)

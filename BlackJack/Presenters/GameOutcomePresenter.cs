@@ -12,10 +12,9 @@ namespace BlackJack.Presenters
         public void PresentOutcomes(List<OutcomeData> outcomes)
         {
             ConsoleView.Instance.DisplayGameEnded();
-            
+
             foreach (OutcomeData outcome in outcomes)
             {
-
                 switch (outcome.OutcomeType)
                 {
                     case EOutcomeType.DealerWins:
@@ -46,8 +45,8 @@ namespace BlackJack.Presenters
                 ConsoleView.Instance.DisplayPlayerCardsAndValues(outcome.Players);
                 ConsoleView.Instance.EmptyLine();
             }
-            
-            if(Configurations.IsDebugMode)
+
+            if (Configurations.IsDebugMode)
                 ConsoleView.Instance.DisplayOutcomes(outcomes);
         }
     }

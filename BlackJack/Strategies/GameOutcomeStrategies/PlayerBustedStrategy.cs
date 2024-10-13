@@ -17,7 +17,7 @@ namespace BlackJack.Strategies.GameOutcomeStrategies
                     Players = game.Players.GetBustedPlayers()
                 };
             }
-            
+
             return null;
         }
     }

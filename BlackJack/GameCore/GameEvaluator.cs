@@ -26,14 +26,15 @@ namespace BlackJack.GameCore
         public List<OutcomeData> Evaluate(Game game)
         {
             var outcomes = new List<OutcomeData>();
-            
+
             foreach (var strategy in _strategies)
             {
                 var outcome = strategy.GetOutcome(game);
-                
+
                 if (outcome != null)
                     outcomes.Add(outcome);
             }
+
             return outcomes;
         }
     }

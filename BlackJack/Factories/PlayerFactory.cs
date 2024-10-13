@@ -9,7 +9,6 @@ namespace BlackJack.Factories
 {
     public class PlayerFactory
     {
-
         public List<IPlayer> CratePlayersByMode(EGameMode mode, int playerCount)
         {
             var players = new List<IPlayer>();
@@ -29,7 +28,7 @@ namespace BlackJack.Factories
 
             return players;
         }
-        
+
         public Dealer CreateDealer()
         {
             return new Dealer();

@@ -422,7 +422,9 @@ namespace BlackJack.Tests
 
             // Assert
             Assert.IsTrue(
-                outcomes.Any(o => o.OutcomeType == EOutcomeType.Draw && o.Players.Contains(mockPlayer1.Object) && o.Players.Contains(mockPlayer2.Object)));
+                outcomes.Any(o =>
+                    o.OutcomeType == EOutcomeType.Draw && o.Players.Contains(mockPlayer1.Object) &&
+                    o.Players.Contains(mockPlayer2.Object)));
             Assert.IsTrue(outcomes.Any(o => o.OutcomeType == EOutcomeType.Draw && o.Players.Count == 3));
             Assert.IsTrue(outcomes.Any(o =>
                 o.OutcomeType == EOutcomeType.PlayerWins && o.Players.Contains(mockPlayer3.Object)));

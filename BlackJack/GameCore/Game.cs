@@ -19,9 +19,9 @@ namespace BlackJack.GameCore
             Dealer = gameData.Dealer;
             Players = gameData.Players;
         }
-        
+
         /// <summary>
-        /// Game Stops In following Conditions
+        /// Game Flow Stops In following Conditions:
         /// - When All players are Busted
         /// - When Dealer is Busted
         /// - When Player Asks for Hold
@@ -35,7 +35,7 @@ namespace BlackJack.GameCore
                 AddCardToPlayers();
                 Dealer.AddCardToHand(Deck.DrawCard());
 
-                if (Players.All(p=>p.IsBusted()))
+                if (Players.All(p => p.IsBusted()))
                     break;
 
                 if (Dealer.IsBusted())
@@ -59,6 +59,7 @@ namespace BlackJack.GameCore
                 if (!player.TakeTurn(Deck))
                     return false;
             }
+
             return true;
         }
 

@@ -10,7 +10,7 @@ namespace BlackJack.Extensions
         {
             return players.Where(p => p.IsBusted()).ToList();
         }
-        
+
         public static List<IPlayer> GetNonBustedPlayers(this List<IPlayer> players)
         {
             return players.Where(p => !p.IsBusted()).ToList();
@@ -18,12 +18,12 @@ namespace BlackJack.Extensions
 
         public static bool AreAllBusted(this List<IPlayer> players)
         {
-            return players.All(p=>p.IsBusted());
+            return players.All(p => p.IsBusted());
         }
-        
+
         public static bool IsAnyBusted(this List<IPlayer> players)
         {
-            return players.Any(p=>p.IsBusted());
+            return players.Any(p => p.IsBusted());
         }
     }
 }
