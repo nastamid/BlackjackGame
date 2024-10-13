@@ -91,6 +91,7 @@ namespace BlackJack.View
         public void PromptDealerBusted()
         {
             Console.BackgroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.Write("Dealer - BUSTED");
             Console.ResetColor();
             Console.WriteLine();

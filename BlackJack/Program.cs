@@ -16,7 +16,6 @@ namespace BlackJack
             var gameEvaluator = new GameEvaluator();
             var playerFactory = new PlayerFactory();
             var jsonReader = new JsonReader();
-            var deck = new Deck(jsonReader.LoadCardsFromJson(Configurations.CardsJsonPath)); // Skipping Error handling
             var presenter = new GameOutcomePresenter();
 
             while (true)
@@ -26,7 +25,7 @@ namespace BlackJack
 
                 var gameData = new GameData
                 {
-                    Deck = deck,
+                    Deck = new Deck(jsonReader.LoadCardsFromJson(Configurations.CardsJsonPath)), // Skipping Error handling
                     Dealer = playerFactory.CreateDealer(),
                     Players = playerFactory.CratePlayersByMode(gameMode, playerCount)
                 };
