@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BlackJack.Data;
 using BlackJack.Models.Deck;
@@ -6,7 +7,7 @@ using BlackJack.Models.Players;
 
 namespace BlackJack.GameCore
 {
-    public class Game
+    public class Game : IDisposable
     {
         public IDeck Deck { get; private set; }
         public IPlayer Dealer { get; private set; }

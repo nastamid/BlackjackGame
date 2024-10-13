@@ -1,4 +1,5 @@
-﻿using BlackJack.AppSettings;
+﻿using System;
+using BlackJack.AppSettings;
 using BlackJack.Data;
 using BlackJack.Factories;
 using BlackJack.GameCore;
@@ -20,26 +21,43 @@ namespace BlackJack
 
             while (true)
             {
-                var gameMode = InputRequester.AskForGameMode();
-                var playerCount = InputRequester.AskPlayerCount();
+                if (!RunGameCycle(gameEvaluator, playerFactory, jsonReader, presenter))
+                    break;
+            }
+        }
 
-                var gameData = new GameData
-                {
-                    Deck = new Deck(jsonReader.LoadCardsFromJson(Configurations.CardsJsonPath)), // Skipping Error handling
-                    Dealer = playerFactory.CreateDealer(),
-                    Players = playerFactory.CratePlayersByMode(gameMode, playerCount)
-                };
+        private static bool RunGameCycle(GameEvaluator gameEvaluator, PlayerFactory playerFactory,
+            JsonReader jsonReader, GameOutcomePresenter presenter)
+        {
+            var gameMode = InputRequester.AskForGameMode();
+            var playerCount = InputRequester.AskPlayerCount();
 
-                var game = new Game(gameData);
+            Deck deck;
+            try
+            {
+                deck = new Deck(jsonReader.LoadCardsFromJson(Configurations.CardsJsonPath));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading deck: {ex.Message}");
+                return true;
+            }
 
+            var gameData = new GameData
+            {
+                Deck = deck,
+                Dealer = playerFactory.CreateDealer(),
+                Players = playerFactory.CratePlayersByMode(gameMode, playerCount)
+            };
+
+            using (var game = new Game(gameData))
+            {
                 game.Run();
                 var outcomes = gameEvaluator.Evaluate(game);
                 presenter.PresentOutcomes(outcomes);
-                game.Dispose();
-
-                if (!InputRequester.AskPlayAgain())
-                    break;
             }
+
+            return InputRequester.AskPlayAgain();
         }
     }
 }
