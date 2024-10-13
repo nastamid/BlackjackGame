@@ -14,7 +14,7 @@ namespace BlackJack.Input
                 ConsoleView.Instance.AskForGameMode();
                 var choice = Input.Instance.ReadLine().ToUpper();
 
-                if (!choice.Equals("S") || !choice.Equals("M"))
+                if (!(choice.Equals("S") || choice.Equals("M")))
                     ConsoleView.Instance.PromptInvalidGameMode();
 
                 return choice.Equals("S") ? EGameMode.SinglePlayer : EGameMode.MultiPlayer;

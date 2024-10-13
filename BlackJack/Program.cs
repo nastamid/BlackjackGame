@@ -4,6 +4,7 @@ using BlackJack.Factories;
 using BlackJack.GameCore;
 using BlackJack.Input;
 using BlackJack.Models.Deck;
+using BlackJack.Presenters;
 using BlackJack.Utils;
 
 namespace BlackJack
@@ -16,6 +17,7 @@ namespace BlackJack
             var playerFactory = new PlayerFactory();
             var jsonReader = new JsonReader();
             var deck = new Deck(jsonReader.LoadCardsFromJson(Configurations.CardsJsonPath));
+            var presenter = new GameOutcomePresenter();
 
             while (true)
             {
@@ -32,7 +34,8 @@ namespace BlackJack
                 var game = new Game(gameData);
 
                 game.Run();
-                gameEvaluator.Evaluate(game);
+                var outcomes = gameEvaluator.Evaluate(game);
+                presenter.PresentOutcomes(outcomes);
                 game.Dispose();
 
                 if (!InputRequester.AskPlayAgain())

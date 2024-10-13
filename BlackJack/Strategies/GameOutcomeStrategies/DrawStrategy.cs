@@ -17,6 +17,8 @@ namespace BlackJack.Strategies.GameOutcomeStrategies
             if (drawPlayers.Count == 0)
                 return null;
             
+            drawPlayers.Add(game.Dealer);
+            
             return new OutcomeData
             {
                 OutcomeType = EOutcomeType.Draw,

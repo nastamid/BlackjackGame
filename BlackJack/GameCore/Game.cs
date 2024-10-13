@@ -22,6 +22,12 @@ namespace BlackJack.GameCore
             BustedPlayers = new List<IPlayer>();
         }
         
+        /// <summary>
+        /// Game Stops In following Conditions
+        /// - When All players are Busted
+        /// - When Dealer is Busted
+        /// - When Player Asks for Hold
+        /// </summary>
         public void Run()
         {
             Deck.Shuffle();
@@ -75,9 +81,10 @@ namespace BlackJack.GameCore
 
         public void Dispose()
         {
+            Deck = null;
             Dealer = null;
             Players = null;
-            Deck = null;
+            BustedPlayers = null;
         }
     }
 }

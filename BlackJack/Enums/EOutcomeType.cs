@@ -5,7 +5,6 @@
         DealerWins,
         DealerLoses,
         DealerBusted,
-        
         PlayerWins,
         PlayerLoses,
         PlayerBusted,
