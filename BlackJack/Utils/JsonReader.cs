@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using BlackJack.Models;
+using BlackJack.Wrappers;
 using Newtonsoft.Json;
 
 namespace BlackJack.Utils

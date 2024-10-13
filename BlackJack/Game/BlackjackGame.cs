@@ -1,102 +1,81 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using BlackJack.AppSettings;
-using BlackJack.Enums;
-using BlackJack.Factories;
 using BlackJack.Models;
 using BlackJack.Players;
-using BlackJack.Utils;
 using BlackJack.View;
 
-namespace BlackJack
+namespace BlackJack.Game
 {
     public class BlackjackGame
     {
-        private readonly Evaluator _evaluator = new Evaluator();
-        private readonly PlayerFactory _playerFactory = new PlayerFactory();
-        private readonly IJsonReader jsonReader = new JsonReader();
-        
-        private Deck _deck;
-        private List<APlayer> _players;
+        public Deck Deck { get; private set; }
+        public Dealer Dealer { get; private set; }
+        public List<APlayer> Players { get; private set; }
 
-        public void Initialize(EGameMode gameMode, int playerCount)
+        public BlackjackGame(GameData gameData)
         {
-            _players = new List<APlayer>();
-            _deck = new Deck(jsonReader.LoadCardsFromJson(Configurations.CardsJsonPath));
-
-            switch (gameMode)
-            {
-                case EGameMode.SinglePlayer:
-                    _players.Add(_playerFactory.CreateHumanPlayer());
-                    _players.AddRange(_playerFactory.CreateBotPlayers(--playerCount));
-                    break;
-                case EGameMode.MultiPlayer:
-                    _players.AddRange(_playerFactory.CreateHumanPlayers(playerCount));
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode, null);
-            }
-
-            _players.Add(_playerFactory.CreateDealer());
+            Deck = gameData.Deck;
+            Dealer = gameData.Dealer;
+            Players = gameData.Players;
         }
 
-        public void StartGame()
+        public void Run()
         {
-            PlayGame();
-            EndGame();
-        }
-
-        private void PlayGame()
-        {
-            _deck.Shuffle();
+            Deck.Shuffle();
             var isHit = true;
             while (isHit)
             {
                 AddCardToPlayers();
+                Dealer.AddCardToHand(Deck.DrawCard());
+                
                 KickOutBustedPlayers();
-
-                if (_players.Count <= 1)
+                
+                if (Players.Count == 0)
+                    break;
+                
+                if (Dealer.IsBusted())
                     break;
 
-                foreach (var player in _players)
-                {
-                    isHit = player.TakeTurn(_deck);
-                    if (!isHit)
-                        break;
-                }
+                isHit = PlayersTakeTurn();
+                
+                if (!isHit)
+                    break;
+                
+                Dealer.TakeTurn(Deck);
             }
         }
 
-        private void EndGame()
+        private bool PlayersTakeTurn()
         {
-            ConsoleView.Instance.DisplayEndGame();
-            var winner = _evaluator.DetermineWinner(_players);
-            ConsoleView.Instance.DisplayWinner(winner);
-            _players.Remove(winner);
-            ConsoleView.Instance.DisplayLeftPlayerCardsAndValue(_players);
+            foreach (var player in Players)
+            {
+                if (!player.TakeTurn(Deck)) 
+                    return false;
+            }
+            return true;
         }
 
         private void KickOutBustedPlayers()
         {
-            var bustedPlayers = _players.Where(player => player.IsBusted()).ToList();
+            var bustedPlayers = Players.Where(player => player.IsBusted()).ToList();
             foreach (var bustedPlayer in bustedPlayers)
             {
                 ConsoleView.Instance.DisplayBustedPlayer(bustedPlayer);
-                _players.Remove(bustedPlayer);
+                Players.Remove(bustedPlayer);
             }
         }
 
         private void AddCardToPlayers()
         {
-            foreach (var player in _players)
-                player.AddCardToHand(_deck.DrawCard());
+            foreach (var player in Players)
+                player.AddCardToHand(Deck.DrawCard());
         }
 
         public void Dispose()
         {
-            _players = null;
-            _deck = null;
+            Dealer = null;
+            Players = null;
+            Deck = null;
         }
     }
 }

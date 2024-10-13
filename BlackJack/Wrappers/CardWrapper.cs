@@ -2,7 +2,7 @@
 using BlackJack.Models;
 using Newtonsoft.Json;
 
-namespace BlackJack.Utils
+namespace BlackJack.Wrappers
 {
     public class CardWrapper
     {

@@ -1,7 +1,9 @@
-﻿using System;
-using BlackJack.Enums;
+﻿using BlackJack.AppSettings;
+using BlackJack.Factories;
+using BlackJack.Game;
+using BlackJack.Input;
+using BlackJack.Models;
 using BlackJack.Utils;
-using BlackJack.View;
 
 namespace BlackJack
 {
@@ -9,52 +11,31 @@ namespace BlackJack
     {
         public static void Main(string[] args)
         {
-            StartNewGame();
-        }
-
-        private static void StartNewGame()
-        {
-            var game = new BlackjackGame();
-
+            var gameEvaluator = new GameEvaluator();
+            var playerFactory = new PlayerFactory();
+            var jsonReader = new JsonReader();
+            var deck = new Deck(jsonReader.LoadCardsFromJson(Configurations.CardsJsonPath));
+            
             while (true)
             {
-                var gameMode = AskForGameMode();
-                var playerCount = AskPlayerCount();
+                var gameMode = InputRequester.AskForGameMode();
+                var playerCount = InputRequester.AskPlayerCount();
 
-                game.Initialize(gameMode, playerCount);
-                game.StartGame();
+                var gameData = new GameData()
+                {
+                    Deck = deck,
+                    Dealer = playerFactory.CreateDealer(),
+                    Players = playerFactory.GetPlayersByMode(gameMode, playerCount)
+                };
+                
+                var game = new BlackjackGame(gameData);
+
+                game.Run();
+                gameEvaluator.Evaluate(game);
                 game.Dispose();
 
-                ConsoleView.Instance.AskPlayAgainOrQuit();
-                if (Console.ReadKey().KeyChar == 'q')
+                if(!InputRequester.AskPlayAgain())
                     break;
-            }
-        }
-
-        private static EGameMode AskForGameMode()
-        {
-            while (true)
-            {
-                ConsoleView.Instance.Clear();
-                ConsoleView.Instance.AskForGameMode();
-                var choice = Input.Instance.ReadLine().ToUpper();
-
-                if (!choice.Equals("S") || !choice.Equals("M"))
-                    ConsoleView.Instance.PromptInvalidGameMode();
-
-                return choice.Equals("S") ? EGameMode.SinglePlayer : EGameMode.MultiPlayer;
-            }
-        }
-
-        private static int AskPlayerCount()
-        {
-            while (true)
-            {
-                ConsoleView.Instance.Clear();
-                ConsoleView.Instance.AskHowManyPlayers();
-                if (int.TryParse(Input.Instance.ReadLine(), out var playerCount) && playerCount > 0 && playerCount < 7)
-                    return playerCount;
-                ConsoleView.Instance.PromptInvalidInputPlayerNumber();
             }
         }
     }

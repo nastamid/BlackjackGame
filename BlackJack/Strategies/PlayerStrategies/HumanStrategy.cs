@@ -13,7 +13,7 @@ namespace BlackJack.Strategies
             {
                 ConsoleView.Instance.DisplayPlayerHand(player);
                 ConsoleView.Instance.DisplayQuestionForHitOrHold(player);
-                var choice = Input.Instance.ReadLine()?.ToUpper();
+                var choice = Input.Input.Instance.ReadLine()?.ToUpper();
                 if (choice != "H" && choice != "X")
                     continue;
                 return choice == "H";

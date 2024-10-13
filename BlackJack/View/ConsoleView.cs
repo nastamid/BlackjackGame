@@ -35,12 +35,17 @@ namespace BlackJack.View
             Console.WriteLine($"{aPlayer.Name} - Do you want to (H)it or (X)HOLD?");
         }
 
-        public void DisplayWinner(APlayer aPlayer)
+        public void DisplayWinner(List<APlayer> winnerPlayers)
         {
             Console.BackgroundColor = ConsoleColor.Green;
             Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine("{0} is a Winner", aPlayer.Name);
-            DisplayPlayerHand(aPlayer);
+
+            foreach (var winner in winnerPlayers)
+            {
+                Console.WriteLine("{0} is a Winner", winner.Name);
+                DisplayPlayerHand(winner);
+            }
+            
             Console.ResetColor();
             Console.WriteLine();
         }
