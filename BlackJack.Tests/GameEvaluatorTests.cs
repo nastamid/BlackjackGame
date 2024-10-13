@@ -37,7 +37,6 @@ namespace BlackJack.Tests
             _evaluator = new GameEvaluator();
         }
 
-
         [Test]
         public void Evaluate_DealerBusted_ShouldDeclarePlayerWinner()
         {

@@ -2,6 +2,7 @@
 using System.Linq;
 using BlackJack.Data;
 using BlackJack.Enums;
+using BlackJack.Extensions;
 using BlackJack.GameCore;
 using BlackJack.Models.Players;
 
@@ -13,7 +14,7 @@ namespace BlackJack.Strategies.GameOutcomeStrategies
         
         public OutcomeData GetOutcome(Game game)
         {
-            if (game.Dealer.IsBusted() && game.Players.All(p => p.IsBusted()))
+            if (game.Dealer.IsBusted() && game.Players.AreAllBusted())
             {
                 return new OutcomeData()
                 {

@@ -12,14 +12,12 @@ namespace BlackJack.GameCore
         public IDeck Deck { get; private set; }
         public IPlayer Dealer { get; private set; }
         public List<IPlayer> Players { get; private set; }
-        public List<IPlayer> BustedPlayers { get; private set; }
 
         public Game(GameData gameData)
         {
             Deck = gameData.Deck;
             Dealer = gameData.Dealer;
             Players = gameData.Players;
-            BustedPlayers = new List<IPlayer>();
         }
         
         /// <summary>
@@ -37,9 +35,7 @@ namespace BlackJack.GameCore
                 AddCardToPlayers();
                 Dealer.AddCardToHand(Deck.DrawCard());
 
-                KickOutBustedPlayers();
-
-                if (Players.Count == 0)
+                if (Players.All(p=>p.IsBusted()))
                     break;
 
                 if (Dealer.IsBusted())
@@ -57,20 +53,13 @@ namespace BlackJack.GameCore
         private bool PlayersTakeTurn()
         {
             foreach (var player in Players)
+            {
+                if (player.IsBusted())
+                    continue;
                 if (!player.TakeTurn(Deck))
                     return false;
-            return true;
-        }
-
-        private void KickOutBustedPlayers()
-        {
-            var bustedPlayers = Players.Where(player => player.IsBusted()).ToList();
-            foreach (var bustedPlayer in bustedPlayers)
-            {
-                ConsoleView.Instance.DisplayBustedPlayer(bustedPlayer);
-                BustedPlayers.Add(bustedPlayer);
-                Players.Remove(bustedPlayer);
             }
+            return true;
         }
 
         private void AddCardToPlayers()
@@ -84,7 +73,6 @@ namespace BlackJack.GameCore
             Deck = null;
             Dealer = null;
             Players = null;
-            BustedPlayers = null;
         }
     }
 }

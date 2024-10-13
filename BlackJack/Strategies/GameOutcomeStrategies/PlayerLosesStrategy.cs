@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using BlackJack.Data;
 using BlackJack.Enums;
+using BlackJack.Extensions;
 using BlackJack.GameCore;
 
 namespace BlackJack.Strategies.GameOutcomeStrategies
@@ -9,7 +10,7 @@ namespace BlackJack.Strategies.GameOutcomeStrategies
     {
         public OutcomeData GetOutcome(Game game)
         {
-            if (game.Players.Count == 0)
+            if (game.Players.AreAllBusted())
                 return null;
             
             var losers = game.Players.Where(p => p.HandValue < game.Dealer.HandValue).ToList();

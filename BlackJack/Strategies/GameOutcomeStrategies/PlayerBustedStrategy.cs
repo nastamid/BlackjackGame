@@ -1,5 +1,6 @@
 ﻿using BlackJack.Data;
 using BlackJack.Enums;
+using BlackJack.Extensions;
 using BlackJack.GameCore;
 
 namespace BlackJack.Strategies.GameOutcomeStrategies
@@ -8,13 +9,13 @@ namespace BlackJack.Strategies.GameOutcomeStrategies
     {
         public OutcomeData GetOutcome(Game game)
         {
-            if (game.BustedPlayers.Count == 0)
+            if (!game.Players.IsAnyBusted())
                 return null;
 
             return new OutcomeData()
             {
                 OutcomeType = EOutcomeType.PlayerBusted,
-                Players = game.BustedPlayers
+                Players = game.Players.GetBustedPlayers()
             };
         }
     }
