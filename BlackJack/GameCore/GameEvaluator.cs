@@ -15,11 +15,9 @@ namespace BlackJack.GameCore
                 new DealerBustedStrategy(),
                 new DealerLosesStrategy(),
                 new DealerWinsStrategy(),
-                
                 new PlayerBustedStrategy(),
                 new PlayerLosesStrategy(),
                 new PlayerWinsStrategy(),
-                
                 new DrawStrategy(),
                 new EveryoneBustedStrategy()
             };

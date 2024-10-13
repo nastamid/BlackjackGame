@@ -10,6 +10,7 @@ namespace BlackJack.Strategies.GameOutcomeStrategies
     {
         public OutcomeData GetOutcome(Game game)
         {
+            //Draw can be only Between Dealer and the player, if players HandValue is the same it doesn't matter
             var drawPlayers = game.Players.GetNonBustedPlayers()
                 .Where(p => p.HandValue == game.Dealer.HandValue).ToList();
 
