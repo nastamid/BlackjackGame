@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using BlackJack.AppSettings;
+﻿using BlackJack.AppSettings;
 using BlackJack.Data;
 using BlackJack.Factories;
 using BlackJack.GameCore;
 using BlackJack.Input;
-using BlackJack.Models;
 using BlackJack.Models.Deck;
 using BlackJack.Presenters;
 using BlackJack.Utils;
