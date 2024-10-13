@@ -1,10 +1,10 @@
 ﻿using BlackJack.Enums;
-using BlackJack.Game;
+using BlackJack.GameCore;
 
 namespace BlackJack.Strategies.GameOutcomeStrategies
 {
     public interface IGameOutcomeStrategy
     {
-        void Execute(BlackjackGame game);
+        EOutcomeType? Execute(Game game);
     }
 }

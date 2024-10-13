@@ -53,20 +53,22 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="AppSettings\Configurations.cs"/>
-        <Compile Include="Enums\OutcomeType.cs" />
-        <Compile Include="Game\GameData.cs" />
-        <Compile Include="Game\GameEvaluator.cs" />
+        <Compile Include="Enums\EOutcomeType.cs" />
+        <Compile Include="GameCore\GameData.cs" />
+        <Compile Include="GameCore\GameEvaluator.cs" />
         <Compile Include="Enums\EGameMode.cs"/>
         <Compile Include="Factories\PlayerFactory.cs"/>
-        <Compile Include="Game\BlackjackGame.cs" />
+        <Compile Include="GameCore\Game.cs" />
         <Compile Include="Input\Input.cs" />
         <Compile Include="Input\InputRequester.cs" />
         <Compile Include="Models\Card.cs"/>
-        <Compile Include="Models\Deck.cs"/>
-        <Compile Include="Players\Bot.cs"/>
-        <Compile Include="Players\Dealer.cs"/>
-        <Compile Include="Players\Human.cs"/>
-        <Compile Include="Players\APlayer.cs"/>
+        <Compile Include="Models\Deck\Deck.cs" />
+        <Compile Include="Models\Deck\IDeck.cs" />
+        <Compile Include="Models\Players\BasePlayer.cs" />
+        <Compile Include="Models\Players\Bot.cs" />
+        <Compile Include="Models\Players\Dealer.cs" />
+        <Compile Include="Models\Players\Human.cs" />
+        <Compile Include="Models\Players\IPlayer.cs" />
         <Compile Include="Program.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
         <Compile Include="Strategies\GameOutcomeStrategies\DealerBustedStrategy.cs" />

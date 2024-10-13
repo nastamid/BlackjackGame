@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BlackJack.AppSettings;
-using BlackJack.Utils;
 
-namespace BlackJack.Models
+namespace BlackJack.Models.Deck
 {
-    public class Deck
+    public class Deck : IDeck
     {
         public Deck(List<Card> cards)
         {

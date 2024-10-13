@@ -1,29 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using BlackJack.Models;
-using BlackJack.Utils;
-using Moq;
-using Xunit;
+using BlackJack.Models.Deck;
+using NUnit.Framework;
 
 namespace BlackJack.Tests
 {
     public class DeckTests
     {
-        private readonly List<Card> _cards = new List<Card>
+        private List<Card> _cards;
+
+        [SetUp]
+        public void Setup()
         {
-            new Card("Hearts", "Ace", 11),
-            new Card("Spades", "King", 10),
-            new Card("Diamonds", "Queen", 10),
-            new Card("Clubs", "Jack", 10),
-            new Card("Hearts", "10", 10),
-            new Card("Spades", "9", 9),
-            new Card("Diamonds", "8", 8),
-            new Card("Clubs", "7", 7),
-            new Card("Hearts", "6", 6),
-            new Card("Spades", "5", 5)
-        }; 
-        
-        [Fact]
+            _cards = new List<Card>
+            {
+                new Card("Hearts", "Ace", 11),
+                new Card("Spades", "King", 10),
+                new Card("Diamonds", "Queen", 10),
+                new Card("Clubs", "Jack", 10),
+                new Card("Hearts", "10", 10),
+                new Card("Spades", "9", 9),
+                new Card("Diamonds", "8", 8),
+                new Card("Clubs", "7", 7),
+                new Card("Hearts", "6", 6),
+                new Card("Spades", "5", 5)
+            };
+        }
+
+        [Test]
         public void Shuffle_ShouldRandomizeCardOrder()
         {
             // Arrange
@@ -33,31 +38,31 @@ namespace BlackJack.Tests
             deck.Shuffle();
 
             // Assert
-            Assert.NotEqual(_cards, deck.Cards);
+            Assert.AreNotEqual(_cards, deck.Cards);
         }
 
-        [Fact]
+        [Test]
         public void DrawCard_ShouldReturnFirstCard()
         {
             // Arrange
             var deck = new Deck(_cards);
-            
+
             // Act
             var drawnCard = deck.DrawCard();
-            
+
             // Assert
-            Assert.Equal("Hearts", drawnCard.Suit);
-            Assert.Equal("Ace", drawnCard.Face);
-            Assert.Equal(11, drawnCard.Value);
+            Assert.Equals("Hearts", drawnCard.Suit);
+            Assert.Equals("Ace", drawnCard.Face);
+            Assert.Equals(11, drawnCard.Value);
         }
 
-        [Fact]
+        [Test]
         public void DrawCard_ShouldThrowExceptionWhenDeckIsEmpty()
         {
             // Arrange
             var deck = new Deck(_cards);
-            
-            while (deck.Cards.Count > 0) 
+
+            while (deck.Cards.Count > 0)
                 deck.DrawCard();
 
             // Act & Assert

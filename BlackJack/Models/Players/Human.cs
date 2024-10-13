@@ -1,8 +1,8 @@
 ﻿using BlackJack.Strategies;
 
-namespace BlackJack.Players
+namespace BlackJack.Models.Players
 {
-    public class Human : APlayer
+    public class Human : BasePlayer
     {
         public Human(string name) : base(name, new HumanStrategy())
         {

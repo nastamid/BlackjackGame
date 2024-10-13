@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using BlackJack.Enums;
 using BlackJack.Strategies.GameOutcomeStrategies;
 
-namespace BlackJack.Game
+namespace BlackJack.GameCore
 {
     public class GameEvaluator
     {
@@ -9,7 +10,7 @@ namespace BlackJack.Game
 
         public GameEvaluator()
         {
-            _strategies = new List<IGameOutcomeStrategy>()
+            _strategies = new List<IGameOutcomeStrategy>
             {
                 new DrawStrategy(),
                 new EveryoneBustedStrategy(),
@@ -17,10 +18,16 @@ namespace BlackJack.Game
             };
         }
 
-        public void Evaluate(BlackjackGame game)
+        public EOutcomeType? Evaluate(Game game)
         {
             foreach (var strategy in _strategies)
-                strategy.Execute(game);
+            {
+                var outcome = strategy.Execute(game);
+                if (outcome != null)
+                    return outcome;
+            }
+
+            return null;
         }
     }
 }

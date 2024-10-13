@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using BlackJack.AppSettings;
 using BlackJack.Enums;
-using BlackJack.Players;
+using BlackJack.Models.Players;
 using BlackJack.View;
 
 namespace BlackJack.Factories
@@ -10,9 +10,9 @@ namespace BlackJack.Factories
     public class PlayerFactory
     {
 
-        public List<APlayer> GetPlayersByMode(EGameMode mode, int playerCount)
+        public List<IPlayer> CratePlayersByMode(EGameMode mode, int playerCount)
         {
-            var players = new List<APlayer>();
+            var players = new List<IPlayer>();
 
             switch (mode)
             {

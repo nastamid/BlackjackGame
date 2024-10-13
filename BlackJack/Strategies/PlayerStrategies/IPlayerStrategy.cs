@@ -1,10 +1,10 @@
-﻿using BlackJack.Models;
-using BlackJack.Players;
+﻿using BlackJack.Models.Deck;
+using BlackJack.Models.Players;
 
 namespace BlackJack.Strategies
 {
     public interface IPlayerStrategy
     {
-        bool ShouldHit(APlayer player, Deck deck);
+        bool ShouldHit(IPlayer player, IDeck deck);
     }
 }

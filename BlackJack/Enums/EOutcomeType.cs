@@ -1,6 +1,6 @@
 ﻿namespace BlackJack.Enums
 {
-    public enum OutcomeType
+    public enum EOutcomeType
     {
         DealerWins,
         PlayerWins,

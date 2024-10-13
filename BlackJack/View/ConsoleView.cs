@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using BlackJack.Players;
+using BlackJack.Models.Players;
 
 namespace BlackJack.View
 {
@@ -10,10 +10,10 @@ namespace BlackJack.View
         private static ConsoleView _instance;
         public static ConsoleView Instance => _instance ?? (_instance = new ConsoleView());
 
-        public void DisplayPlayerHand(APlayer aPlayer)
+        public void DisplayPlayerHand(IPlayer player)
         {
-            Console.Write($"{aPlayer.Name}'s Hand Value = {aPlayer.HandValue.ToString()}, Hand: ");
-            foreach (var card in aPlayer.Hand)
+            Console.Write($"{player.Name}'s Hand Value = {player.HandValue.ToString()}, Hand: ");
+            foreach (var card in player.Hand)
             {
                 Console.Write($"|{card.Face}_{card.Suit}_{card.Value}|");
             }
@@ -21,21 +21,21 @@ namespace BlackJack.View
             Console.WriteLine();
         }
 
-        public void DisplayBustedPlayer(APlayer aPlayer)
+        public void DisplayBustedPlayer(IPlayer player)
         {
             Console.BackgroundColor = ConsoleColor.Red;
             Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine($"{aPlayer.Name} is busted");
-            DisplayPlayerHand(aPlayer);
+            Console.WriteLine($"{player.Name} is busted");
+            DisplayPlayerHand(player);
             Console.ResetColor();
         }
 
-        public void DisplayQuestionForHitOrHold(APlayer aPlayer)
+        public void DisplayQuestionForHitOrHold(IPlayer player)
         {
-            Console.WriteLine($"{aPlayer.Name} - Do you want to (H)it or (X)HOLD?");
+            Console.WriteLine($"{player.Name} - Do you want to (H)it or (X)HOLD?");
         }
 
-        public void DisplayWinner(List<APlayer> winnerPlayers)
+        public void DisplayWinner(List<IPlayer> winnerPlayers)
         {
             Console.BackgroundColor = ConsoleColor.Green;
             Console.ForegroundColor = ConsoleColor.Black;
@@ -50,7 +50,7 @@ namespace BlackJack.View
             Console.WriteLine();
         }
 
-        public void DisplayLeftPlayerCardsAndValue(List<APlayer> players)
+        public void DisplayLeftPlayerCardsAndValue(List<IPlayer> players)
         {
             Console.WriteLine("Other Players:");
             foreach (var player in players)

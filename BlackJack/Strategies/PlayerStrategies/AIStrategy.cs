@@ -1,12 +1,12 @@
-﻿using BlackJack.Models;
-using BlackJack.Players;
+﻿using BlackJack.Models.Deck;
+using BlackJack.Models.Players;
 using BlackJack.View;
 
 namespace BlackJack.Strategies
 {
     public class AIStrategy : IPlayerStrategy
     {
-        public bool ShouldHit(APlayer player, Deck deck)
+        public bool ShouldHit(IPlayer player, IDeck deck)
         {
             var isHit = player.HandValue < 17;
 

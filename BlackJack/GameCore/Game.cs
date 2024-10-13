@@ -1,24 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using BlackJack.Models;
-using BlackJack.Players;
+using BlackJack.Models.Deck;
+using BlackJack.Models.Players;
 using BlackJack.View;
 
-namespace BlackJack.Game
+namespace BlackJack.GameCore
 {
-    public class BlackjackGame
+    public class Game
     {
-        public Deck Deck { get; private set; }
-        public Dealer Dealer { get; private set; }
-        public List<APlayer> Players { get; private set; }
+        public IDeck Deck { get; private set; }
+        public IPlayer Dealer { get; private set; }
+        public List<IPlayer> Players { get; private set; }
 
-        public BlackjackGame(GameData gameData)
+        public Game(GameData gameData)
         {
             Deck = gameData.Deck;
             Dealer = gameData.Dealer;
             Players = gameData.Players;
         }
-
+        
         public void Run()
         {
             Deck.Shuffle();
@@ -27,20 +27,20 @@ namespace BlackJack.Game
             {
                 AddCardToPlayers();
                 Dealer.AddCardToHand(Deck.DrawCard());
-                
+
                 KickOutBustedPlayers();
-                
+
                 if (Players.Count == 0)
                     break;
-                
+
                 if (Dealer.IsBusted())
                     break;
 
                 isHit = PlayersTakeTurn();
-                
+
                 if (!isHit)
                     break;
-                
+
                 Dealer.TakeTurn(Deck);
             }
         }
@@ -48,10 +48,8 @@ namespace BlackJack.Game
         private bool PlayersTakeTurn()
         {
             foreach (var player in Players)
-            {
-                if (!player.TakeTurn(Deck)) 
+                if (!player.TakeTurn(Deck))
                     return false;
-            }
             return true;
         }
 

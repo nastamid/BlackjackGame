@@ -6,7 +6,6 @@ namespace BlackJack.Wrappers
 {
     public class CardWrapper
     {
-        [JsonProperty("Card")]    
-        public List<Card> Cards { get; set; }
+        [JsonProperty("Card")] public List<Card> Cards { get; set; }
     }
 }

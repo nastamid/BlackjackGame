@@ -1,32 +1,33 @@
-﻿using BlackJack.Game;
+﻿using BlackJack.Enums;
+using BlackJack.GameCore;
 
 namespace BlackJack.Strategies.GameOutcomeStrategies
 {
     public class DrawStrategy : IGameOutcomeStrategy
     {
-        public void Execute(BlackjackGame game)
+        public EOutcomeType? Execute(Game game)
         {
-            string result = "Outcome: ";
-            bool isDraw = false;
+            var isDraw = false;
 
             foreach (var player in game.Players)
-            {
                 if (player.HandValue == game.Dealer.HandValue)
                 {
-                    result += $"{player.Name} draws with the Dealer. ";
+                    //result += $"{player.Name} draws with the Dealer. ";
                     isDraw = true;
                 }
                 else if (player.HandValue > game.Dealer.HandValue && !player.IsBusted())
                 {
-                    result += $"{player.Name} wins. ";
+                    //result += $"{player.Name} wins. ";
                 }
                 else if (player.HandValue < game.Dealer.HandValue && !player.IsBusted())
                 {
-                    result += $"{player.Name} loses. ";
+                    //result += $"{player.Name} loses. ";
                 }
-            }
 
-            //return isDraw ? result : null;
+            if (isDraw)
+                return EOutcomeType.Draw;
+
+            return null;
         }
     }
 }
