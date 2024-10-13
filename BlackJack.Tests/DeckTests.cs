@@ -51,9 +51,9 @@ namespace BlackJack.Tests
             var drawnCard = deck.DrawCard();
 
             // Assert
-            Assert.Equals("Hearts", drawnCard.Suit);
-            Assert.Equals("Ace", drawnCard.Face);
-            Assert.Equals(11, drawnCard.Value);
+            Assert.AreEqual("Hearts", drawnCard.Suit);
+            Assert.AreEqual("Ace", drawnCard.Face);
+            Assert.AreEqual(11, drawnCard.Value);
         }
 
         [Test]
