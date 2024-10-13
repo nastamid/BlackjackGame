@@ -368,6 +368,7 @@ namespace BlackJack.Tests
             Assert.AreEqual(3, outcomes.Select(o => o.OutcomeType).Distinct().Count());
         }
 
+        [TearDown]
         public void Cleanup()
         {
             _game.Dispose();
