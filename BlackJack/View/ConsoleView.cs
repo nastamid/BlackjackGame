@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using BlackJack.Data;
+using BlackJack.Enums;
 using BlackJack.Models.Players;
 
 namespace BlackJack.View
@@ -84,17 +86,15 @@ namespace BlackJack.View
         
         public void DisplayWinners(List<IPlayer> winnerPlayers)
         {
-            Console.BackgroundColor = ConsoleColor.Green;
 
             foreach (var winner in winnerPlayers)
             {
+                Console.BackgroundColor = ConsoleColor.Green;
                 Console.WriteLine("{0} - WON!", winner.Name);
-                DisplayPlayerHand(winner);
-                Console.WriteLine();
+                // DisplayPlayerHand(winner);
+                Console.ResetColor();
+
             }
-            
-            Console.ResetColor();
-            Console.WriteLine();
         }
 
         public void DisplayLosers(List<IPlayer> losers)
@@ -104,12 +104,10 @@ namespace BlackJack.View
             foreach (var loser in losers)
             {
                 Console.WriteLine("{0} - LOST", loser.Name);
-                DisplayPlayerHand(loser);
-                Console.WriteLine();
+                // DisplayPlayerHand(loser);
             }
             
             Console.ResetColor();
-            Console.WriteLine();
         }
 
         public void DisplayBustedPlayers(List<IPlayer> bustedPlayers)
@@ -119,12 +117,10 @@ namespace BlackJack.View
             foreach (var bustedPlayer in bustedPlayers)
             {
                 Console.WriteLine("{0} - BUSTED!", bustedPlayer.Name);
-                DisplayPlayerHand(bustedPlayer);
-                Console.WriteLine();
+                // DisplayPlayerHand(bustedPlayer);
             }
             
             Console.ResetColor();
-            Console.WriteLine();
         }
 
         public void DisplayPlayersInDraw(List<IPlayer> drawPlayers)
@@ -134,7 +130,7 @@ namespace BlackJack.View
             foreach (var drawPlayer in drawPlayers)
             {
                 Console.WriteLine("{0} - DRAW!", drawPlayer.Name);
-                DisplayPlayerHand(drawPlayer);
+                // DisplayPlayerHand(drawPlayer);
                 Console.WriteLine();
             }
             
@@ -164,6 +160,35 @@ namespace BlackJack.View
             {
                 Console.Write($"|{card.Face}_{card.Suit}_{card.Value}|");
             }
+            Console.WriteLine();
+        }
+
+        public void DisplayOutcomes(List<OutcomeData> outcomes)
+        {
+            Console.WriteLine("*** Outcome Report Start ***");
+            foreach (var outcome in outcomes)
+                DisplayOutcome(outcome);
+            
+            Console.WriteLine("--- Outcome Report End ---");
+
+        }
+
+        private void DisplayOutcome(OutcomeData outcome)
+        {
+            Console.WriteLine($"Outcome: {Enum.GetName(typeof(EOutcomeType), outcome.OutcomeType)}");
+            Console.WriteLine("Players:");
+            DisplayPlayerNames(outcome.Players);
+            Console.WriteLine("---------");
+        }
+
+        public void DisplayPlayerNames(List<IPlayer> players)
+        {
+            foreach (var player in players)
+                Console.WriteLine(player.Name);
+        }
+
+        public void EmptyLine()
+        {
             Console.WriteLine();
         }
     }

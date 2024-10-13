@@ -14,6 +14,7 @@ namespace BlackJack.Presenters
             
             foreach (OutcomeData outcome in outcomes)
             {
+
                 switch (outcome.OutcomeType)
                 {
                     case EOutcomeType.DealerWins:
@@ -40,8 +41,12 @@ namespace BlackJack.Presenters
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
+
+                ConsoleView.Instance.EmptyLine();
                 ConsoleView.Instance.DisplayPlayerCardsAndValues(outcome.Players);
             }
+            
+            ConsoleView.Instance.DisplayOutcomes(outcomes);
         }
     }
 }

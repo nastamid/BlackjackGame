@@ -12,7 +12,7 @@ namespace BlackJack.Strategies.GameOutcomeStrategies
         {
             // If Dealer is busted return all Non-busted Players, regardless their score
 
-            if (game.Dealer.IsBusted())
+            if (game.Dealer.IsBusted() && game.Players.GetNonBustedPlayers().Count > 0)
                 return new OutcomeData
                 {
                     OutcomeType = EOutcomeType.PlayerWins,
@@ -20,9 +20,9 @@ namespace BlackJack.Strategies.GameOutcomeStrategies
                 };
 
             // If Dealer is not busted, players who have more than dealer is the winner
-            var winners = game.Players.Where(p => p.HandValue > game.Dealer.HandValue).ToList();
+            var winners = game.Players.GetNonBustedPlayers().Where(p => p.HandValue > game.Dealer.HandValue).ToList();
 
-            if (winners.Count != 0)
+            if (winners.Count > 0)
                 return new OutcomeData
                 {
                     OutcomeType = EOutcomeType.PlayerWins,

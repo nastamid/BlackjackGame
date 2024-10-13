@@ -10,12 +10,12 @@ namespace BlackJack.Strategies.GameOutcomeStrategies
     {
         public OutcomeData GetOutcome(Game game)
         {
-            if (game.Players.AreAllBusted())
+            if (game.Dealer.IsBusted())
                 return null;
 
             var losers = game.Players.GetNonBustedPlayers().Where(p => p.HandValue < game.Dealer.HandValue).ToList();
 
-            if (losers.Count != 0)
+            if (losers.Count > 0)
                 return new OutcomeData
                 {
                     OutcomeType = EOutcomeType.PlayerLoses,
