@@ -53,6 +53,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="AppSettings\Configurations.cs"/>
+        <Compile Include="Data\GameCycleData.cs" />
         <Compile Include="Data\GameData.cs"/>
         <Compile Include="Data\OutcomeData.cs"/>
         <Compile Include="Enums\EOutcomeType.cs"/>
