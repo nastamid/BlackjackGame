@@ -3,7 +3,6 @@ using System.Linq;
 using BlackJack.Data;
 using BlackJack.Models.Deck;
 using BlackJack.Models.Players;
-using BlackJack.View;
 
 namespace BlackJack.GameCore
 {
