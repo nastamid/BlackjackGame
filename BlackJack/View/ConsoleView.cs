@@ -74,6 +74,7 @@ namespace BlackJack.View
         public void PromptDealerWins()
         {
             Console.BackgroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.Black;
             Console.Write("Dealer - WON");
             Console.ResetColor();
             Console.WriteLine();
@@ -100,6 +101,7 @@ namespace BlackJack.View
             foreach (var winner in winnerPlayers)
             {
                 Console.BackgroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.Black;
                 Console.Write("{0} - WON!", winner.Name);
                 Console.ResetColor();
                 Console.WriteLine();
@@ -134,6 +136,7 @@ namespace BlackJack.View
             foreach (var drawPlayer in drawPlayers)
             {
                 Console.BackgroundColor = ConsoleColor.Yellow;
+                Console.ForegroundColor = ConsoleColor.Black;
                 Console.Write("{0} - DRAW!", drawPlayer.Name);
                 Console.ResetColor();
                 Console.WriteLine();
