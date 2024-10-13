@@ -1,4 +1,5 @@
 ﻿using BlackJack.AppSettings;
+using BlackJack.Data;
 using BlackJack.Factories;
 using BlackJack.GameCore;
 using BlackJack.Input;

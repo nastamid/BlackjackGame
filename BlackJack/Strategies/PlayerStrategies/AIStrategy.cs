@@ -2,7 +2,7 @@
 using BlackJack.Models.Players;
 using BlackJack.View;
 
-namespace BlackJack.Strategies
+namespace BlackJack.Strategies.PlayerStrategies
 {
     public class AIStrategy : IPlayerStrategy
     {

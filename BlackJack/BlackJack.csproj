@@ -53,8 +53,9 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="AppSettings\Configurations.cs"/>
+        <Compile Include="Data\GameData.cs" />
+        <Compile Include="Data\OutcomeData.cs" />
         <Compile Include="Enums\EOutcomeType.cs" />
-        <Compile Include="GameCore\GameData.cs" />
         <Compile Include="GameCore\GameEvaluator.cs" />
         <Compile Include="Enums\EGameMode.cs"/>
         <Compile Include="Factories\PlayerFactory.cs"/>
@@ -64,7 +65,6 @@
         <Compile Include="Models\Card.cs"/>
         <Compile Include="Models\Deck\Deck.cs" />
         <Compile Include="Models\Deck\IDeck.cs" />
-        <Compile Include="Models\OutcomeData.cs" />
         <Compile Include="Models\Players\BasePlayer.cs" />
         <Compile Include="Models\Players\Bot.cs" />
         <Compile Include="Models\Players\Dealer.cs" />

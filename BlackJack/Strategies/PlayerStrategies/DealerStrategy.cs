@@ -1,7 +1,7 @@
 ﻿using BlackJack.Models.Deck;
 using BlackJack.Models.Players;
 
-namespace BlackJack.Strategies
+namespace BlackJack.Strategies.PlayerStrategies
 {
     public class DealerStrategy : IPlayerStrategy
     {

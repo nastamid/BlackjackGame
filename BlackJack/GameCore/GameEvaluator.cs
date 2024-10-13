@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BlackJack.Data;
 using BlackJack.Strategies.GameOutcomeStrategies;
 
 namespace BlackJack.GameCore

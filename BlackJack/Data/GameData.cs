@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using BlackJack.Models;
 using BlackJack.Models.Deck;
 using BlackJack.Models.Players;
 
-namespace BlackJack.GameCore
+namespace BlackJack.Data
 {
     public class GameData
     {

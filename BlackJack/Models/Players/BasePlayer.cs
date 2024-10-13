@@ -2,6 +2,7 @@
 using System.Linq;
 using BlackJack.Models.Deck;
 using BlackJack.Strategies;
+using BlackJack.Strategies.PlayerStrategies;
 
 namespace BlackJack.Models.Players
 {

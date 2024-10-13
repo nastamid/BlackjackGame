@@ -2,7 +2,7 @@
 using BlackJack.Enums;
 using BlackJack.Models.Players;
 
-namespace BlackJack.Strategies.GameOutcomeStrategies
+namespace BlackJack.Data
 {
     public class OutcomeData
     {
