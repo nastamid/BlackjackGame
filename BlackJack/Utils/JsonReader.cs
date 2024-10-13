@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using BlackJack.Models;
 using BlackJack.Wrappers;
@@ -15,8 +16,16 @@ namespace BlackJack.Utils
     {
         public List<Card> LoadCardsFromJson(string filePath)
         {
-            var json = File.ReadAllText(filePath);
-            return JsonConvert.DeserializeObject<CardWrapper>(json).Cards;
+            try
+            {
+                var json = File.ReadAllText(filePath);
+                return JsonConvert.DeserializeObject<CardWrapper>(json).Cards;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }
