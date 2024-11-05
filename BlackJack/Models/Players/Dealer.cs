@@ -1,5 +1,4 @@
 ﻿using BlackJack.AppSettings;
-using BlackJack.Strategies;
 using BlackJack.Strategies.PlayerStrategies;
 
 namespace BlackJack.Models.Players
