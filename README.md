@@ -68,5 +68,3 @@ Contributions are welcome! Feel free to fork this repository, make your changes,
 
 📄 License
 This project is licensed under the MIT License. See the LICENSE file for details.
-
-Feel free to add or adjust the links to images and the installation instructions based on your specific setup. Let me know if you need more visuals or help with any of the sections!
