@@ -1,12 +1,11 @@
-﻿using BlackJack.Models.Deck;
-using BlackJack.Models.Players;
+﻿using BlackJack.Models.Players;
 using BlackJack.View;
 
 namespace BlackJack.Strategies.PlayerStrategies
 {
     public class HumanStrategy : IPlayerStrategy
     {
-        public bool ShouldHit(IPlayer player, IDeck deck)
+        public bool ShouldHit(IPlayer player)
         {
             while (true)
             {
