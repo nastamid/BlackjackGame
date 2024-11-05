@@ -7,7 +7,7 @@ Single-Player Mode: Play against a table of bots, each making very simple decisi
 
 ## 📸 Demo
 
-![Blackjack](https://github.com/user-attachments/assets/9d504a3c-2116-4a86-996d-6160e9740e05)
+![blackjack2](https://github.com/user-attachments/assets/1b58e518-9c6d-4a74-963b-15ce57971d66)
 
 ## 🚀 Getting Started 
 Clone this repository:
