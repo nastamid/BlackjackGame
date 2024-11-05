@@ -21,7 +21,9 @@ Or just find an exe file: bash Copy code `BlackJack\bin\Release\BlackJack.exe` E
 ## 📖 Gameplay Rules
 The game follows standard Blackjack rules:
 
-Objective: Get closer to 21 than the dealer without going over. Dealer Rules: Dealer stands on 17 or higher. Winning Conditions: Beat the dealer's hand or have the highest hand if the dealer busts.
+Objective: Get closer to 21 than the dealer without going over. 
+Dealer Rules: Dealer stands on 17 or higher. 
+Winning Conditions: Beat the dealer's hand or have the highest hand if the dealer busts.
 
 ## 🛠️ Project Structure and Design
 
@@ -47,7 +49,9 @@ Language: Built purely in C# to leverage object-oriented principles for a clean,
 
 The design is highly scalable, making future improvements simple to implement:
 
-Advanced Bot Strategies: Create more sophisticated bot behaviors to simulate real players. Real-Time Multiplayer: Expand the multiplayer feature for real-time gameplay. Graphical User Interface: Upgrade from console-based to a graphical interface for a more engaging experience.
+Advanced Bot Strategies: Create more sophisticated bot behaviors to simulate real players. 
+Real-Time Multiplayer: Expand the multiplayer feature for real-time gameplay. 
+Graphical User Interface: Upgrade from console-based to a graphical interface for a more engaging experience.
 
 ## 🤝 Contributing 
 Contributions are welcome! Feel free to fork this repository, make your changes, and submit a pull request.
