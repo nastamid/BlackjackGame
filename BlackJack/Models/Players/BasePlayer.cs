@@ -28,7 +28,7 @@ namespace BlackJack.Models.Players
 
         public bool TakeTurn(IDeck deck)
         {
-            return _strategy.ShouldHit(this, deck);
+            return _strategy.ShouldHit(this);
         }
 
         public void AddCardToHand(Card card)
